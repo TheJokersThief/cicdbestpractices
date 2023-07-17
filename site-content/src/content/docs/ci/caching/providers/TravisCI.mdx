@@ -1,0 +1,26 @@
+---
+title: Travis CI Caching
+---
+
+import { Card } from '@astrojs/starlight/components';
+
+<Card icon="document" title="Offical documentation">
+
+* [Generic and package manager advice for caching](https://docs.travis-ci.com/user/caching/)
+</Card>
+
+```yaml
+language: python    
+cache: pip
+```
+
+You can also manually specify which directories will be cached, though you can't 
+choose the cache key.
+
+```yaml
+cache:
+  directories:
+    - $HOME/.cache/pip
+before_cache:
+  - rm -f $HOME/.cache/pip/log/debug.log
+```

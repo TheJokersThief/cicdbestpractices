@@ -1,0 +1,19 @@
+---
+title: Jenkins Caching
+---
+
+import { Card } from '@astrojs/starlight/components';
+
+<Card icon="document" title="Offical documentation">
+
+* [JobCacher Jenkins community plugin](https://plugins.jenkins.io/jobcacher/)
+</Card>
+
+```groovy
+arbitraryFileCache(
+    path: 'my-cache',
+    cacheValidityDecidingFile: 'package-lock.json',
+    includes: 'node_modules',
+    excludes: '**/*.generated'
+)
+```

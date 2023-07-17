@@ -5,21 +5,25 @@ import starlight from '@astrojs/starlight';
 export default defineConfig({
   integrations: [
     starlight({
-      title: 'My Docs',
+      title: 'CI/CD Best Practises',
       social: {
-        github: 'https://github.com/withastro/starlight',
+        github: 'https://github.com/thejokersthief/cicdbestpractises',
       },
       sidebar: [
         {
-          label: 'Guides',
+          label: 'Continuous Integration',
           items: [
             // Each item here is one entry in the navigation menu.
-            { label: 'Example Guide', link: '/guides/example/' },
+            { label: 'Caching', link: '/ci/caching/' },
           ],
         },
         {
-          label: 'Reference',
-          autogenerate: { directory: 'reference' },
+          label: 'Providers',
+          autogenerate: { directory: 'providers' },
+        },
+        {
+          label: 'Languages',
+          autogenerate: { directory: 'languages' },
         },
       ],
     }),

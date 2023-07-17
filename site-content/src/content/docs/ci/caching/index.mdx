@@ -1,0 +1,175 @@
+---
+title: Caching
+description: A guide to caching
+---
+
+import { Tabs, TabItem, Card } from '@astrojs/starlight/components';
+
+**Caching is transient/temporary data storage.** It's the act of reusing previously 
+made assets/artifacts/information to speed up your build by working from a 
+previous checkpoint. By doing this, we can reduce redundant actions and improve 
+computation speed.
+
+### Benefits of caching
+
+There are two primary benefits of caching:
+
+1. **Build Speed:** By working from previous data, we don't have to repeat actions like
+downloading dependencies or testing code that hasn't changed.
+2. **Network Load Management:** A lot of modern CI processes use data from _somewhere_
+else, such as downloading dependencies. By caching these actions, you don't just
+reduce the time those actions take, but also the load they create on the external
+services.
+
+### What is a cache key?
+
+**A cache key is the identifier for our cache**, and is how we will refer to and
+extract data later. 
+
+We often use dynamic information in our cache keys. For example, some folks will
+choose to include the branch name so that every feature branch has a separate
+cache.
+
+A very common piece of dynamic information is a "checksum" of a file. A checksum
+is a computed hash that represents the contents of a file. It's one-way, meaning
+that you can generate a checksum from a file but you cannot generate that same file
+from the checksum. This info is useful, to create a compact identifier that
+represents a file's contents. When the contents change, so does the checksum.
+
+## Popular Patterns
+
+There is no one-size-fits-all pattern, and we'd encourage you to mix and match
+patterns depending on what suits your needs.
+
+### Update on the mainline only
+
+Only rebuild/update/upload the cache on the master/main/release branch.
+
+**Cache key example:**
+
+```
+<static-branch-name>-<checksum>-<static-version>
+main-1234567890asdfghjkl-v1
+```
+
+**Pro:** Easy to share cache with all builds, because it's based on what's been merged
+into the mainline.
+
+**Con:** Testing caching can be hard as you have to remove any branch restrictions
+for the cache update, and be careful to use a separate cache key so that you
+don't affect anyone else's build. That is, you need to make manual changes that
+should not be commit to the final product.
+
+### Separate branch, separate cache
+
+Each branch maintains a separate cache, that isn't shared with any other branches.
+
+**Cache key example:**
+
+```
+<branch>-<checksum>-<static-version>
+my-feature/ticket-123-1234567890asdfghjkl-v1
+```
+
+**Pro:** Easy to test caching changes.
+
+**Con:** The first build on every new branch will take longer as it doesn't benefit 
+from a cache.
+
+### A cache per build, to share information
+
+Every build/commit gets a separate cache, and doesn't share it outside the build.
+This pattern is primarily used to pass information between different stages in
+a build, such as unique build assets. 
+
+**Cache key example:**
+
+```
+<commit-sha>-<checksum>-<static-version>
+ae23bc1-1234567890asdfghjkl-v1
+```
+
+**Pro:** Can share information between machines and network locations.
+
+**Con:** No data is shared with any other build/commit and so it doesn't contribute to
+any speedup in subsequent builds.
+
+## Advice 
+### Picking a cache key
+
+When choosing a cache key, you'll (generally) want a combination of three components:
+
+1. **A description:** Something that describes the intended use of the cache (e.g. `npm-dependencies`)
+2. **A checksum:** Often, we're storing the output of some process. A good cache
+key includes the identifier for the inputs used to generate that output. For example,
+the checksum of a lockfile (e.g. `package-lock.json`, `poetry.lock`) represents
+the _inputs_ of the dependencies we downloaded/_output_.
+3. **A static version:** Caches are not infallible, and sometimes we can end up
+with a corrupted or somehow bad cache. To burst it and start over, it's useful to
+have something like `-v1` at the end of they key to quickly burst the cache with
+a single commit.
+
+
+import GoMod from './package_managers/go-mod.mdx'
+import NodeNPM from './package_managers/node-npm.mdx'
+import NodePNPM from './package_managers/node-pnpm.mdx'
+import NodeYarn from './package_managers/node-yarn.mdx'
+import PythonPip from './package_managers/python-pip.mdx'
+import PythonPoetry from './package_managers/python-poetry.mdx'
+import RubyBundles from './package_managers/ruby-bundles.mdx'
+import RustCrates from './package_managers/rust-crates.mdx'
+
+## How to for package managers
+
+### Go - go.mod
+<GoMod />
+
+### Node - NPM
+<NodeNPM />
+
+### Node - PNPM
+<NodePNPM />
+
+### Node - yarn
+<NodeYarn />
+
+### Python - pip
+<PythonPip />
+
+### Python - poetry
+<PythonPoetry />
+
+### Ruby - bundles
+<RubyBundles />
+
+### Rust - crates
+<RustCrates />
+
+
+import CircleCI from './providers/CircleCI.mdx'
+import GithubActions from './providers/GithubActions.mdx'
+import Jenkins from './providers/Jenkins.mdx'
+import TravisCI from './providers/TravisCI.mdx'
+import Generic from './providers/Generic.mdx'
+
+## How to for CI providers
+
+### CircleCI
+
+<CircleCI />
+
+### Github Actions
+
+<GithubActions />
+
+### Jenkins
+
+<Jenkins />
+
+### Travis CI
+
+<TravisCI />
+
+### Generic (container)
+
+<Generic />

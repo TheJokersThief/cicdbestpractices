@@ -1,0 +1,26 @@
+---
+title: CircleCI Caching
+---
+import { Card } from '@astrojs/starlight/components';
+
+<Card icon="document" title="Offical documentation">
+* [General caching](https://circleci.com/docs/caching/)
+* [Cache optimisation](https://circleci.com/docs/caching-strategy/#cache-optimization)
+* [Language-specific caching info](https://circleci.com/docs/caching-strategy/#partial-dependency-caching-strategies)
+</Card>
+
+```yaml
+steps:
+  - restore_cache:
+      keys:
+        # when lock file changes, use increasingly general patterns to restore cache
+        - gradle-repo-v1-{{ .Branch }}-{{ checksum "dependencies.lockfile" }}
+        - gradle-repo-v1-{{ .Branch }}-
+        - gradle-repo-v1-
+  - save_cache:
+      paths:
+        - ~/.gradle/caches
+        - ~/.gradle/wrapper
+      key: gradle-repo-v1-{{ .Branch }}-{{ checksum "dependencies.lockfile" }}
+
+```

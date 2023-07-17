@@ -1,0 +1,44 @@
+---
+title: Generic caching
+---
+import { Card } from '@astrojs/starlight/components';
+
+<Card icon="document" title="UnOffical documentation">
+
+* [Caching plugin originally built for Drone CI](https://github.com/meltwater/drone-cache)
+    * [Full list of CLI arguments and environment variables](https://github.com/meltwater/drone-cache#using-executable-with-cli-args)
+</Card>
+
+To do this generically, we're going to leverage a public plugin for DroneCI and
+hijack its inputs a little. Below, we'll detail the docker command that runs
+this cache, to give you a picture of the common inputs.
+
+To run this verbatim, delete the blank lines and comments.
+
+```bash
+docker run --rm \
+    -v "$(pwd)":/app \
+    -e DRONE_REPO=octocat/hello-world \
+    -e DRONE_REPO_BRANCH=main \
+    -e DRONE_COMMIT_BRANCH=main \
+    
+    # restore = cache download 
+    -e PLUGIN_RESTORE=false \
+    # rebuild = cache upload
+    -e PLUGIN_REBUILD=true \
+ 
+    # Cloud storage location and authentication
+    -e PLUGIN_BUCKET=<bucket> \
+    -e AWS_ACCESS_KEY_ID=<token> \
+    -e AWS_SECRET_ACCESS_KEY=<secret> \
+ 
+    # To prevent partial cache unpacking, use `gzip` or `zstd` 
+    -e PLUGIN_ARCHIVE_FORMAT="zstd"
+ 
+    # A comma-separated list of directories to cache
+    -e PLUGIN_MOUNT=/app/node_modules \
+ 
+    # A Go-templated string to represent the cache key
+    -e PLUGIN_CACHE_KEY='{{ .Commit.Branch }}-{{ checksum "package-lock.json" }}-v1' \
+    meltwater/drone-cache
+```
