@@ -1,0 +1,20 @@
+---
+title: go - mod
+---
+
+Directories:
+
+* `~/go/pkg/mod`
+
+Cache key: 
+
+```
+# <architecture>-<lockfile checksum>-<static version>
+{{ arch }}-{{ checksum "go.sum"  }}-v1
+```
+
+To find the directories to be cached, you can run the following command:
+
+```bash
+go env GOMODCACHE
+```
