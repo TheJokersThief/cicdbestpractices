@@ -1,3 +1,19 @@
 ---
 title: "node - yarn"
 ---
+
+Environment variables:
+
+* `YARN_CACHE_FOLDER=".cache"`
+
+Directories:
+
+* `./node_modules`
+* `./.cache`
+
+Cache key: 
+
+```
+# <lockfile checksum>-<static version>
+{{ checksum "yarn.lock"  }}-v1
+```

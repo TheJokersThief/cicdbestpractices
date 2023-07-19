@@ -1,3 +1,20 @@
 ---
 title: "python - poetry"
 ---
+
+Environment variables:
+
+* `POETRY_CACHE_DIR=".cache"` – Set the caching directory to be in the project
+* `POETRY_VIRTUALENVS_IN_PROJECT="true"` – Set the virtualenv directory to be in the project
+
+Directories:
+
+* `.venv`
+* `.cache`
+
+Cache key: 
+
+```
+# <lockfile checksum>-<static version>
+{{ checksum "poetry.lock"  }}-v1
+```
