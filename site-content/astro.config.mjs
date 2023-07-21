@@ -6,6 +6,9 @@ export default defineConfig({
   integrations: [
     starlight({
       title: 'CI/CD Best Practises',
+      logo: {
+        src: './src/assets/logo.png',
+      },
       social: {
         github: 'https://github.com/thejokersthief/cicdbestpractises',
       },
