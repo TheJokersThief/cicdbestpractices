@@ -1,0 +1,49 @@
+---
+title: Parallelisation
+description: A guide to running jobs in parallel
+---
+
+The easiest way to speed up CI builds is to split your tasks up to be run in 
+parallel on multiple machines. Parallelising your workload means that you
+are only limited by the slowest step in your build. Think about things that don’t 
+immediately look like they could be run independently verify that assumption –
+Knowing your dependency graph inside-out is going to help a lot.
+
+
+## Popular patterns
+
+### Fan-out/Fan-in
+
+This pattern involves running a common build/compilation step to setup the code
+for testing, then fanning-out run a set of acceptance tests in parallel and
+then fanning-in again to run the deploy job.
+
+![](../../../../assets/parallelisation/fan-out_fan-in.png)
+
+## Test Sharding
+
+### Node - Jest
+
+
+import CircleCI from './providers/CircleCI.mdx';
+import GithubActions from './providers/GitHubActions.mdx';
+import Jenkins from './providers/Jenkins.mdx';
+import TravisCI from './providers/TravisCI.mdx';
+
+## How to for CI providers
+
+### CircleCI
+
+<CircleCI />
+
+### Github Actions
+
+<GithubActions />
+
+### Jenkins
+
+<Jenkins />
+
+### Travis CI
+
+<TravisCI />

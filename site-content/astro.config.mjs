@@ -8,6 +8,7 @@ export default defineConfig({
       title: 'CI/CD Best Practises',
       logo: {
         src: './src/assets/logo.png',
+        replacesTitle: true,
       },
       social: {
         github: 'https://github.com/thejokersthief/cicdbestpractises',
@@ -16,8 +17,9 @@ export default defineConfig({
         {
           label: 'Continuous Integration',
           items: [
-            // Each item here is one entry in the navigation menu.
             { label: 'Caching', link: '/ci/caching/' },
+            { label: 'Parallelisation', link: '/ci/parallelisation/' },
+            { label: 'Workload Identity', link: '/ci/workload-identity/' },
           ],
         },
         {
