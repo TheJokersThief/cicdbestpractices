@@ -1,0 +1,16 @@
+---
+title: GitHub Actions Caching
+---
+import { Card } from '@astrojs/starlight/components';
+
+<Card icon="document" title="Offical documentation">
+
+* [Using concurrency](https://docs.github.com/en/actions/using-jobs/using-concurrency)
+</Card>
+
+
+```yaml
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+```

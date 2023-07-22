@@ -1,36 +1,35 @@
 ---
-title: Welcome to the home of CI/CD knowledge!
+title: CI/CD Best Practises
 description: Welcome to the home of CI/CD knowledge!
 template: splash
 hero:
   tagline: An open source knowledgebase for all things CI/CD. Technology, philosophy, design and infrastructure patterns - we want to host it all. If you're interested in contributing, check out our <a href="https://github.com/TheJokersThief/cicdbestpractises.com"">[GitHub Repo]</a>.
   image:
     file: ../../assets/logo-alt.png
-  actions:
-    - text: Guides
-      link: /ci/caching/
-      icon: right-arrow
-      variant: primary
+  actions: []
+    # - text: Guides
+    #   link: /ci/caching/
+    #   icon: right-arrow
+    #   variant: primary
     # - text: Read the Starlight docs
     #   link: https://starlight.astro.build
     #   icon: external
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
-
-## Next steps
+import { Card, CardGrid, Icon } from '@astrojs/starlight/components';
+import StartReading from '../../components/StartReading.astro';
 
 <CardGrid stagger>
-  <Card title="Caching" icon="pencil">
+  <Card title="Caching" icon="add-document">
     Learn about how best to [store and reuse build artifacts](/ci/caching).
+    <StartReading link="/ci/caching" />
   </Card>
-  {/* <Card title="Add new content" icon="add-document">
-    Add Markdown or MDX files to `src/content/docs` to create new pages.
+  <Card title="Parallelisation" icon="setting">
+    How to [run your workload/tests across multiple machines](/ci/parallelisation).
+    <StartReading link="/ci/parallelisation" />
   </Card>
-  <Card title="Configure your site" icon="setting">
-    Edit your `sidebar` and other config in `astro.config.mjs`.
+  <Card title="Workload Identity" icon="open-book">
+    Securely setup [authentication to your cloud provider](/ci/workload-identity).
+    <StartReading link="/ci/workload-identity" />
   </Card>
-  <Card title="Read the docs" icon="open-book">
-    Learn more in [the Starlight Docs](https://starlight.astro.build/).
-  </Card> */}
 </CardGrid>

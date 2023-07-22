@@ -1,0 +1,9 @@
+---
+title: Node - Cypress
+---
+
+Cypress can parallelise tests across CI machines [using the CLI](https://docs.cypress.io/guides/cloud/smart-orchestration/parallelization).
+
+```bash
+cypress run --record --parallel --ci-build-id $BUILD_TAG
+```
