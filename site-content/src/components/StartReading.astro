@@ -1,0 +1,15 @@
+---
+import { Icon } from '@astrojs/starlight/components';
+import CallToAction from './CallToAction.astro';
+
+interface Props {
+  link: string;
+}
+
+const { link } = Astro.props;
+---
+
+<CallToAction link={ link } variant="secondary">
+    Start reading 
+    <Icon name="right-arrow" size="1.2rem" />
+</CallToAction>
