@@ -7,7 +7,8 @@ export default defineConfig({
     starlight({
       title: 'CI/CD Best Practises',
       logo: {
-        src: './src/assets/logo.png',
+        dark: './src/assets/logo.png',
+        light: './src/assets/logo-light.png',
         replacesTitle: true,
       },
       social: {
