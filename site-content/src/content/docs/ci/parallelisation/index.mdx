@@ -9,6 +9,12 @@ are only limited by the slowest step in your build. Think about things that donâ
 immediately look like they could be run independently verify that assumption â€“
 Knowing your dependency graph inside-out is going to help a lot.
 
+## What is "sharding"?
+
+In distributed computing, we talk about splitting up a process across multiple
+machines. To do this, we separate a workload into "shards" of deterministic
+tests/actions. In CI, it often means batching all of our unit tests into
+X number of shards, which will then be run concurrently.
 
 ## Popular patterns
 
@@ -34,7 +40,6 @@ import PythonPytest from './test_frameworks/python-pytest.mdx';
 
 ### Python - pytest
 <PythonPytest />
-
 
 
 import CircleCI from './providers/CircleCI.mdx';

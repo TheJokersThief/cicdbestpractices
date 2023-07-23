@@ -2,3 +2,46 @@
 title: Workload Identity
 # description: A guide to running jobs in parallel
 ---
+import { Card } from '@astrojs/starlight/components';
+
+Workload Identity is the process of authenticating your CI workload to your 
+cloud environment. This could be to access a storage bucket, deploy to a 
+kubernetes cluster, read from a database or perform any number of actions 
+in your cloud provider.
+
+## How to for Cloud providers
+
+If you're curious how Workload Identity gets the authentication info for your 
+build, here's a TLDR;
+
+![](../../../../assets/workload-identity/workload-identity.png)
+
+### Google Cloud Platform (GCP)
+<Card icon="document" title="Offical documentation">
+* [Workload identity federation - used outside of the GCP ecosystem](https://cloud.google.com/iam/docs/workload-identity-federation)
+* [Workload identity in GKE](https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity)
+</Card>
+
+### Amazon Web Services (AWS)
+<Card icon="document" title="Offical documentation">
+* [Creating an OIDC provider](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html)
+</Card>
+
+### Microsoft Azure
+<Card icon="document" title="Offical documentation">
+* [Workload identity federation](https://learn.microsoft.com/en-us/azure/active-directory/workload-identities/workload-identity-federation)
+</Card>
+
+
+import CircleCI from './providers/CircleCI.mdx';
+import GithubActions from './providers/GitHubActions.mdx';
+
+## How to for CI providers
+
+### CircleCI
+
+<CircleCI />
+
+### Github Actions
+
+<GithubActions />
