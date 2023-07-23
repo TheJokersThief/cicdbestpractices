@@ -18,9 +18,17 @@ export default defineConfig({
         {
           label: 'Continuous Integration',
           items: [
+            { label: 'Automate Nitpicks', link: '/ci/automate-nitpicks/' },
             { label: 'Caching', link: '/ci/caching/' },
             { label: 'Parallelisation', link: '/ci/parallelisation/' },
+            { label: 'Scheduled Pipelines', link: '/ci/scheduled-pipelines/' },
             { label: 'Workload Identity', link: '/ci/workload-identity/' },
+          ],
+        },
+        {
+          label: 'Continuous Deployment',
+          items: [
+            { label: 'Deploy Continuously', link: '/cd/deploy-continuously/' },
           ],
         },
         {

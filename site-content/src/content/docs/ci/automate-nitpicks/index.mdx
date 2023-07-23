@@ -1,0 +1,19 @@
+---
+title: Automate Nitpicks
+---
+
+Most nitpicks are automate-able. Code style and complexity can all be handled these days by linters, and you should use them extensively. Try to think about the mundane maintenance of how you expect code to be written and enforce it through automation instead of people.
+
+An engineer’s time is very expensive. You can minimise the amount of time they spend on repeating themselves and their team’s standards, through CI.
+
+It also helps minimise the friction and frustration between engineers. It can get grating repeating yourself, and it can be annoying to receive a death by a thousand papercuts and small change requests. 
+
+Automating nitpicks keeps your code consistent, and keeps folks from using up their relationship capital on minor requests. 
+
+Sidenote: Make sure your linting stack is easy to run locally as well (e.g. through pre-commit hooks). Pushing to CI only for it to fail on linting is fine every once in a while, but having to rely on CI to fix your subsequent linting issues gets frustrating quickly.
+
+## Popular patterns
+
+### Linting & auto-formatting code
+
+### Linting documentation
