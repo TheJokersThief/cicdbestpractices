@@ -16,6 +16,12 @@ build, here's a TLDR;
 
 ![](../../../../assets/workload-identity/workload-identity.png)
 
+1. Your build agent requests a JSON Web Token (an identity) from the OpenID 
+Provider (your CI/CD provider).
+1. That identity is then given to the cloud provider.
+1. The cloud provider verifies the identity came from where it said it did.
+1. The cloud provider returns an authentication token for accessing its services.
+
 ### Google Cloud Platform (GCP)
 <Card icon="document" title="Offical documentation">
 * [Workload identity federation - used outside of the GCP ecosystem](https://cloud.google.com/iam/docs/workload-identity-federation)
