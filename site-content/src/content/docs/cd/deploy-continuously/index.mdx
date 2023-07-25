@@ -2,8 +2,65 @@
 title: Deploy Continuously
 ---
 
+There’s a good reason the word continuous is in Continuous Delivery. **Deploying 
+every time you merge to your mainline branch has a tonne of advantages over doing
+a timed release every week/month.**
 
-* https://cloud.google.com/blog/products/devops-sre/using-the-four-keys-to-measure-your-devops-performance
+> Continuous delivery is a software development practice where code changes are 
+> automatically prepared for a release to production. A pillar of modern application 
+> development, continuous delivery expands upon continuous integration by deploying 
+> all code changes to a testing environment and/or a production environment after 
+> the build stage. When properly implemented, developers will always have a 
+> deployment-ready build artifact that has passed through a standardized test process. 
+
+– [Continuous Delivery Explained, AWS](https://aws.amazon.com/devops/continuous-delivery/)
+
+## The benefits
+
+### Reduce risk
+Firstly, it reduces the risk of any particular deployment by making debugging 
+easier. Having one changeset to analyse makes it a lot easier to identify what’s 
+gone wrong, and find the most appropriate person to fix it (i.e. the commit author). 
+
+### Improve the feedback loop
+Secondly, it reduces the feedback loop for changes. Folks get to see their 
+changes go out quickly, and it makes iteration easier. The shorter the feedback 
+loop, the easier it is to make sure your changes work with all the others.
+
+### Deliver features quicker
+Thirdly, everyone gets features quicker. Your customers won’t have to wait for 
+the next release cycle, they’ll get the feature as soon as it’s ready.
+
+## Supporting material
+
+### Google's DevOps Research & Analysis (DORA) metrics<sup>[1]</sup>
+At a high level, **Deployment Frequency** and **Lead Time for Changes** measure 
+velocity, while **Change Failure Rate** and **Time to Restore Service** measure 
+stability. And by measuring these values, and continuously iterating to improve 
+on them, a team can achieve significantly better business outcomes.
+
+DORA identified that teams that deployed on-demand, multiple times a day, were
+in their "elite" category. Elite teams were twice as likely to meet or exceed 
+their organizational performance goals.
+
+<sup>[1]</sup> [Are you an Elite DevOps performer? Find out with the Four Keys Project](https://cloud.google.com/blog/products/devops-sre/using-the-four-keys-to-measure-your-devops-performance)
+
+### The business value of Continuous Delivery by atlassian<sup>[2]</sup>
+Atlassian's article about continuous delivery describes it in terms that will be
+more familiar to business-minded folks. They state that the overall benefits of 
+deploying continuously are:
+
+1. Velocity – Automated software delivery pipelines help organizations respond 
+to market changes better. 
+1. Producitivity – Productivity increases when tedious and repetitive tasks, can 
+be performed by pipelines instead of humans. 
+1. Sustainability – Automated pipelines reduce manual labor and lead to eventual 
+savings since personnel is more expensive than tools.
+
+<sup>[2]</sup> [Continuous Delivery: Business Value, Benefits, Challenges & Metrics](https://www.atlassian.com/continuous-delivery/principles/business-value)
+
+
+## links
 * https://www.ibm.com/topics/continuous-delivery
 * https://aws.amazon.com/devops/continuous-delivery/
 * https://www.atlassian.com/continuous-delivery/principles/business-value

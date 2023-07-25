@@ -26,7 +26,7 @@ export default defineConfig({
           ],
         },
         {
-          label: 'Continuous Deployment',
+          label: 'Continuous Delivery',
           items: [
             { label: 'Deploy Continuously', link: '/cd/deploy-continuously/' },
           ],

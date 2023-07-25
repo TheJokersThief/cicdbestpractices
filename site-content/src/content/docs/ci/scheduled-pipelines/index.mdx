@@ -13,23 +13,50 @@ your pipeline by running less-critical tests less frequently.
 
 There’s a simple way to speed up testing: **run less tests.**
 
-The likelihood that you’re going to get people on board with straight up deleting tests is lower than low. Instead, what I’d recommend is **having folks sit down and understand what is the critical path through the application, and focus your tests there.** Particularly with overly-sensitive or flaky tests, relegate them out of the critical path and focus entirely on the things that the business considers central to its existence.
+The likelihood that you’re going to get people on board with straight up deleting 
+tests is lower than low. Instead, what I’d recommend is **having folks sit down 
+and understand what is the critical path through the application, and focus your 
+tests there.** Particularly with overly-sensitive or flaky tests, relegate them 
+out of the critical path and focus entirely on the things that the business 
+considers central to its existence.
 
 Now you have two categories of tests:
 
-* **Blocking, critical path tests** – these should cause build failures and are required for any code to go to production
+* **Blocking, critical path tests** – these should cause build failures and are 
+required for any code to go to production
 * **Non-blocking tests** – these are not required for code to go to prod
 
-Instead of just discarding those non-blocking tests, instead put them in a pipeline all on their own. One that’s going to run hourly/daily/weekly, and still highlight regressions and issues with our code. 
+Instead of just discarding those non-blocking tests, instead put them in a 
+pipeline all on their own. One that’s going to run hourly/daily/weekly, and 
+still highlight regressions and issues with our code. 
 
-Separating the tests lets you build a culture around what’s important to care about, and what’s a non-blocker to getting your code out into the wild. It can also speed up your pipeline significantly. Particularly around UI tests, which often rely on timeouts to know if they’ve failed. Waiting for those 20-30s timeouts adds up, quickly.
+Separating the tests lets you build a culture around what’s important to care 
+about, and what’s a non-blocker to getting your code out into the wild. It can 
+also speed up your pipeline significantly. Particularly around UI tests, which 
+often rely on timeouts to know if they’ve failed. Waiting for those 20-30s 
+timeouts adds up, quickly.
 
-This is also a good exercise for things like instrumenting better observability, prioritising reliability and understanding the core of the business. Regardless of scale, any company older than a year should have a clear idea of the critical path through its service, and what that looks like in the code.
+This is also a good exercise for things like instrumenting better observability, 
+prioritising reliability and understanding the core of the business. Regardless 
+of scale, any company older than a year should have a clear idea of the critical 
+path through its service, and what that looks like in the code.
 
 ### Run nightly builds (not deploys)
 
-Get in the habit of running your builds nightly and alerting on failures. **Old code rots and you don’t want to debug a pipeline in an incident.** Ensure that your code builds, and invest the incremental time to deal with issues, rather than trying to fix it urgently when there’s more at stake.
+Get in the habit of running your builds nightly and alerting on failures. 
+**Old code rots and you don’t want to debug a pipeline in an incident.** Ensure 
+that your code builds, and invest the incremental time to deal with issues, 
+rather than trying to fix it urgently when there’s more at stake.
 
-One of the benefits here is that it will highlight systemic issues with your builds in batches, so that you can deal with them all in one go. The base images you choose will eventually experience expired GPG keys, outdated system packages, updates to unpinned dependencies, etc. etc. It’s good to experience the same failure all at the same time, especially when you can choose to deal with it in your own time.
+One of the benefits here is that it will highlight systemic issues with your 
+builds in batches, so that you can deal with them all in one go. The base images 
+you choose will eventually experience expired GPG keys, outdated system packages, 
+updates to unpinned dependencies, etc. etc. It’s good to experience the same 
+failure all at the same time, especially when you can choose to deal with it 
+in your own time.
 
-This doesn’t mean do a nightly deploy – we don’t want to wake someone up in the night. Run your pipeline in dry run mode because we’re not testing the correctness of the business logic here, we’re testing the functionality of the build pipeline itself. We should run the build as if it were the real thing, but not actually deploy or send the artefacts anywhere.
+This doesn’t mean do a nightly deploy – we don’t want to wake someone up in the 
+night. Run your pipeline in dry run mode because we’re not testing the correctness 
+of the business logic here, we’re testing the functionality of the build pipeline 
+itself. We should run the build as if it were the real thing, but not actually 
+deploy or send the artefacts anywhere.
