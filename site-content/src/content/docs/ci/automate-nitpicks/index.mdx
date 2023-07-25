@@ -2,18 +2,58 @@
 title: Automate Nitpicks
 ---
 
-Most nitpicks are automate-able. Code style and complexity can all be handled these days by linters, and you should use them extensively. Try to think about the mundane maintenance of how you expect code to be written and enforce it through automation instead of people.
+Most nitpicks are automate-able. Code style and complexity can all be handled 
+these days by linters, and you should use them extensively. Try to think about 
+the mundane maintenance of how you expect code to be written and enforce it 
+through automation instead of people.
 
-An engineer’s time is very expensive. You can minimise the amount of time they spend on repeating themselves and their team’s standards, through CI.
+An engineer’s time is very expensive. You can minimise the amount of time they 
+spend on repeating themselves and their team’s standards, through CI.
 
-It also helps minimise the friction and frustration between engineers. It can get grating repeating yourself, and it can be annoying to receive a death by a thousand papercuts and small change requests. 
+It also helps minimise the friction and frustration between engineers. It can 
+get grating repeating yourself, and it can be annoying to receive a death by a 
+thousand papercuts and small change requests. 
 
-Automating nitpicks keeps your code consistent, and keeps folks from using up their relationship capital on minor requests. 
+Automating nitpicks keeps your code consistent, and keeps folks from using up 
+their relationship capital on minor requests. 
 
-Sidenote: Make sure your linting stack is easy to run locally as well (e.g. through pre-commit hooks). Pushing to CI only for it to fail on linting is fine every once in a while, but having to rely on CI to fix your subsequent linting issues gets frustrating quickly.
+Sidenote: Make sure your linting stack is easy to run locally as well (e.g. 
+through pre-commit hooks). Pushing to CI only for it to fail on linting is fine 
+every once in a while, but having to rely on CI to fix your subsequent linting 
+issues gets frustrating quickly.
 
 ## Popular patterns
 
 ### Linting & auto-formatting code
 
+To enforce code quality standards, we use linters and auto-formatters to ensure
+it all looks the same, follows our coding patterns and avoids common pitfalls.
+
+Links to common linters:
+
+* [Go – golangci-lint](https://github.com/golangci/golangci-lint)
+* [Java - checkstyle](https://checkstyle.sourceforge.io/)
+* [Python – flake8](https://flake8.pycqa.org/en/latest/index.html)
+* [Ruby - rubocop](https://rubocop.org/)
+
+Links to autoformatters:
+
+* [Go – gofmt](https://pkg.go.dev/cmd/gofmt)
+* [Python – Black](https://black.readthedocs.io/en/stable/)
+* [Ruby – rufo](https://github.com/ruby-formatter/rufo)
+* [Terraform – terraform fmt](https://developer.hashicorp.com/terraform/cli/commands/fmt)
+
 ### Linting documentation
+
+As well as uniform code, we should care about uniform and consistent documentation.
+Using popular style guides, tools like [vale](https://github.com/errata-ai/vale) 
+can be used to ensure that the language of your choice is audited for consistency,
+style, tone and complexity.
+
+Links to common linters:
+
+* [alex](https://alexjs.com/)
+* [markdown-spellcheck](https://www.npmjs.com/package/markdown-spellcheck)
+* [markdownlint](https://github.com/DavidAnson/markdownlint)
+* [vale](https://github.com/errata-ai/vale)
+* [write-good](https://github.com/btford/write-good)
