@@ -14,6 +14,7 @@ export default defineConfig({
       social: {
         github: 'https://github.com/thejokersthief/cicdbestpractises',
       },
+      tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 4, },
       sidebar: [
         {
           label: 'Continuous Integration',
