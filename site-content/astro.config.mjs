@@ -15,6 +15,9 @@ export default defineConfig({
         github: 'https://github.com/thejokersthief/cicdbestpractises',
       },
       tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 4, },
+      editLink: {
+				baseUrl: 'https://github.com/TheJokersThief/cicdbestpractises/edit/main/site-content/',
+			},
       sidebar: [
         {
           label: 'Continuous Integration',
