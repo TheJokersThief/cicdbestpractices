@@ -1,4 +1,4 @@
-# CI/CD Best Practises (cicdbestpractises.com)
+# CI/CD Best Practices (cicdbestpractices.com)
 
 An open source website to house information on the techniques, patterns and implementation of CI/CD knowledge in the wild.
 

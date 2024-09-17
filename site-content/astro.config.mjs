@@ -5,18 +5,18 @@ import starlight from '@astrojs/starlight';
 export default defineConfig({
   integrations: [
     starlight({
-      title: 'CI/CD Best Practises',
+      title: 'CI/CD Best Practices',
       logo: {
         dark: './src/assets/logo.png',
         light: './src/assets/logo-light.png',
         replacesTitle: true,
       },
       social: {
-        github: 'https://github.com/thejokersthief/cicdbestpractises',
+        github: 'https://github.com/thejokersthief/cicdbestpractices',
       },
       tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 4, },
       editLink: {
-				baseUrl: 'https://github.com/TheJokersThief/cicdbestpractises/edit/main/site-content/',
+				baseUrl: 'https://github.com/TheJokersThief/cicdbestpractices/edit/main/site-content/',
 			},
       sidebar: [
         {

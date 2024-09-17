@@ -8,7 +8,7 @@ assignees: ''
 ---
 
 **Page link**
-[A link to the page](https://cicdbestpractises.com)
+[A link to the page](https://cicdbestpractices.com)
 
 **Describe the issue**
 A clear and concise description of what the bug is.
