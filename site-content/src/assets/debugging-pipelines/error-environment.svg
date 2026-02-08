@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 380" role="img" aria-labelledby="env-error-title">
+  <title id="env-error-title">Environment Variable Error with Annotations</title>
+
+  <defs>
+    <style>
+      .terminal-bg { fill: #1e1e1e; }
+      .terminal-text { fill: #d4d4d4; font-family: 'Courier New', monospace; font-size: 13px; }
+      .error-text { fill: #f87171; }
+      .annotation-box { fill: #fef3c7; stroke: #f59e0b; stroke-width: 2; }
+      .annotation-text { fill: #92400e; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-weight: 600; }
+      .annotation-line { stroke: #f59e0b; stroke-width: 2; fill: none; }
+      .highlight { fill: #fbbf2433; }
+    </style>
+  </defs>
+
+  <!-- Terminal background -->
+  <rect x="20" y="20" width="860" height="200" rx="8" class="terminal-bg"/>
+
+  <!-- Terminal title bar -->
+  <text x="40" y="45" class="terminal-text" style="fill: #9ca3af;">npm start</text>
+
+  <!-- Error output -->
+  <text x="40" y="75" class="terminal-text">> app@1.0.0 start</text>
+  <text x="40" y="95" class="terminal-text">> node server.js</text>
+  <text x="40" y="120" class="terminal-text"></text>
+  <text x="40" y="140" class="error-text">Error: API_KEY is not defined</text>
+  <text x="40" y="160" class="terminal-text" style="fill: #9ca3af;">    at Object.&lt;anonymous&gt; (/app/config.js:12:15)</text>
+  <text x="40" y="180" class="terminal-text" style="fill: #9ca3af;">    at Module._compile (internal/modules/cjs/loader.js:1063:30)</text>
+  <text x="40" y="200" class="terminal-text" style="fill: #9ca3af;">    at processTicksAndRejections (internal/process/task_queues.js:95:5)</text>
+
+  <!-- Highlight important parts -->
+  <rect x="105" y="127" width="135" height="18" class="highlight"/>
+  <rect x="305" y="147" width="140" height="18" class="highlight"/>
+
+  <!-- Annotation 1: Variable Name -->
+  <rect x="50" y="240" width="220" height="50" rx="6" class="annotation-box"/>
+  <text x="160" y="260" class="annotation-text" text-anchor="middle">Missing Variable</text>
+  <text x="160" y="275" class="annotation-text" text-anchor="middle" style="font-weight: 400;">API_KEY not set in CI</text>
+  <path d="M 170 240 L 170 158" class="annotation-line"/>
+
+  <!-- Annotation 2: Where it's used -->
+  <rect x="350" y="240" width="220" height="50" rx="6" class="annotation-box"/>
+  <text x="460" y="260" class="annotation-text" text-anchor="middle">Where It's Used</text>
+  <text x="460" y="275" class="annotation-text" text-anchor="middle" style="font-weight: 400;">/app/config.js line 12</text>
+  <path d="M 430 240 L 370 175" class="annotation-line"/>
+
+  <!-- Code snippet showing usage -->
+  <rect x="600" y="240" width="250" height="80" rx="6" style="fill: #374151; stroke: #4b5563; stroke-width: 2;"/>
+  <text x="615" y="260" style="fill: #9ca3af; font-family: 'Courier New', monospace; font-size: 11px;">// config.js:12</text>
+  <text x="615" y="278" style="fill: #d4d4d4; font-family: 'Courier New', monospace; font-size: 11px;">const config = {</text>
+  <text x="615" y="293" style="fill: #fbbf24; font-family: 'Courier New', monospace; font-size: 11px;">  apiKey: process.env.API_KEY</text>
+  <text x="615" y="308" style="fill: #d4d4d4; font-family: 'Courier New', monospace; font-size: 11px;">};</text>
+  <path d="M 600 280 L 570 270" class="annotation-line"/>
+
+  <!-- Key insight box -->
+  <rect x="50" y="310" width="820" height="50" rx="6" style="fill: #dbeafe; stroke: #3b82f6; stroke-width: 2;"/>
+  <text x="460" y="333" style="fill: #1e40af; font-family: system-ui, -apple-system, sans-serif; font-size: 14px; font-weight: 600; text-anchor: middle;">
+    💡 Environment variable exists locally but not configured in CI
+  </text>
+  <text x="460" y="350" style="fill: #1e40af; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; text-anchor: middle;">
+    Fix: Add API_KEY to CI provider secrets (Settings → Secrets), verify name matches exactly (case-sensitive)
+  </text>
+</svg>

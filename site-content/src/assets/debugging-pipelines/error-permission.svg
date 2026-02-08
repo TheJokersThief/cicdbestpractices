@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" role="img" aria-labelledby="permission-error-title">
+  <title id="permission-error-title">Permission Denied Error with Annotations</title>
+
+  <defs>
+    <style>
+      .terminal-bg { fill: #1e1e1e; }
+      .terminal-text { fill: #d4d4d4; font-family: 'Courier New', monospace; font-size: 12px; }
+      .error-text { fill: #f87171; }
+      .annotation-box { fill: #fef3c7; stroke: #f59e0b; stroke-width: 2; }
+      .annotation-text { fill: #92400e; font-family: system-ui, -apple-system, sans-serif; font-size: 11px; font-weight: 600; }
+      .annotation-line { stroke: #f59e0b; stroke-width: 2; fill: none; }
+      .highlight { fill: #fbbf2433; }
+    </style>
+  </defs>
+
+  <!-- Terminal background -->
+  <rect x="20" y="20" width="860" height="240" rx="8" class="terminal-bg"/>
+
+  <!-- Terminal title bar -->
+  <text x="40" y="45" class="terminal-text" style="fill: #9ca3af;">curl -H "Authorization: Bearer $TOKEN" https://api.github.com/repos/org/repo</text>
+
+  <!-- Error output -->
+  <text x="40" y="75" class="error-text">{</text>
+  <text x="60" y="95" class="error-text">  "message": "Bad credentials",</text>
+  <text x="60" y="115" class="error-text">  "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#authentication",</text>
+  <text x="60" y="135" class="error-text">  "status": "403"</text>
+  <text x="40" y="155" class="error-text">}</text>
+
+  <text x="40" y="180" class="terminal-text"></text>
+  <text x="40" y="200" class="error-text">HTTP/1.1 403 Forbidden</text>
+  <text x="40" y="220" class="terminal-text" style="fill: #9ca3af;">X-RateLimit-Remaining: 60</text>
+  <text x="40" y="240" class="terminal-text" style="fill: #9ca3af;">X-OAuth-Scopes: public_repo</text>
+
+  <!-- Highlight important parts -->
+  <rect x="153" y="82" width="177" height="18" class="highlight"/>
+  <rect x="153" y="122" width="45" height="18" class="highlight"/>
+  <rect x="158" y="187" width="85" height="18" class="highlight"/>
+  <rect x="282" y="227" width="160" height="18" class="highlight"/>
+
+  <!-- Annotation 1: Error Message -->
+  <rect x="50" y="280" width="200" height="45" rx="6" class="annotation-box"/>
+  <text x="150" y="298" class="annotation-text" text-anchor="middle">Authentication Failed</text>
+  <text x="150" y="312" class="annotation-text" text-anchor="middle" style="font-weight: 400;">"Bad credentials"</text>
+  <path d="M 150 280 L 240 107" class="annotation-line"/>
+
+  <!-- Annotation 2: Status Code -->
+  <rect x="280" y="280" width="180" height="45" rx="6" class="annotation-box"/>
+  <text x="370" y="298" class="annotation-text" text-anchor="middle">HTTP Status</text>
+  <text x="370" y="312" class="annotation-text" text-anchor="middle" style="font-weight: 400;">403 = Forbidden</text>
+  <path d="M 370 280 L 210 215" class="annotation-line"/>
+
+  <!-- Annotation 3: Token Scopes -->
+  <rect x="510" y="280" width="220" height="45" rx="6" class="annotation-box"/>
+  <text x="620" y="298" class="annotation-text" text-anchor="middle">Token Scopes</text>
+  <text x="620" y="312" class="annotation-text" text-anchor="middle" style="font-weight: 400;">Only has "public_repo"</text>
+  <path d="M 580 280 L 360 245" class="annotation-line"/>
+
+  <!-- Explanation box -->
+  <rect x="50" y="270" width="820" height="80" rx="6" style="fill: #1f2937; stroke: #4b5563; stroke-width: 2; opacity: 0.95;"/>
+  <text x="80" y="293" style="fill: #f59e0b; font-family: system-ui, -apple-system, sans-serif; font-size: 13px; font-weight: 700;">Why 403 vs 401?</text>
+  <text x="80" y="312" style="fill: #d4d4d4; font-family: system-ui, -apple-system, sans-serif; font-size: 12px;">• 401 Unauthorized = Authentication missing or completely invalid</text>
+  <text x="80" y="330" style="fill: #d4d4d4; font-family: system-ui, -apple-system, sans-serif; font-size: 12px;">• 403 Forbidden = Authenticated successfully, but don't have permission</text>
+
+  <!-- Key insight box -->
+  <rect x="50" y="365" width="820" height="40" rx="6" style="fill: #dbeafe; stroke: #3b82f6; stroke-width: 2;"/>
+  <text x="460" y="385" style="fill: #1e40af; font-family: system-ui, -apple-system, sans-serif; font-size: 13px; font-weight: 600; text-anchor: middle;">
+    💡 Token is valid but missing required scope (needs "repo" not just "public_repo")
+  </text>
+  <text x="460" y="399" style="fill: #1e40af; font-family: system-ui, -apple-system, sans-serif; font-size: 11px; text-anchor: middle;">
+    Fix: Generate new token with correct scopes, update secret in CI, verify token hasn't expired
+  </text>
+</svg>

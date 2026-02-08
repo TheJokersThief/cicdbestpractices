@@ -1,0 +1,168 @@
+---
+title: Jenkins Debugging
+---
+
+## Debugging Tools for Jenkins
+
+Jenkins provides comprehensive debugging capabilities through console logs, pipeline replay, and workspace inspection.
+
+### 1. Console Output
+
+**When to use:** First stop for any Jenkins build failure. Provides complete build log with timestamps and color-coded output.
+
+**How to access:**
+1. Navigate to your build (job → build number)
+2. Click "Console Output" in left sidebar
+3. Or append `/console` to build URL
+
+**What you get:**
+- Complete stdout/stderr from entire build
+- Timestamps for each line (if configured)
+- ANSI color codes for readability
+- Full stack traces for errors
+- Environment variable output
+
+**Enable timestamps:**
+```groovy
+// Jenkinsfile
+pipeline {
+  options {
+    timestamps()
+  }
+}
+```
+
+**Debugging tips:**
+```groovy
+// Add debug output in pipeline
+stage('Debug') {
+  steps {
+    script {
+      echo "=== Environment Variables ==="
+      sh 'env | sort'
+
+      echo "=== Tool Versions ==="
+      sh '''
+        node --version
+        npm --version
+        docker --version
+      '''
+
+      echo "=== Disk Space ==="
+      sh 'df -h'
+
+      echo "=== Current Directory ==="
+      sh 'pwd && ls -la'
+    }
+  }
+}
+```
+
+**Search console output:**
+- Use browser's Find (Ctrl/Cmd+F)
+- Download console log and search locally
+- Use Jenkins "Console Output" search feature if available
+
+### 2. Pipeline Replay
+
+**When to use:** Need to test pipeline changes without committing to repository, quickly iterate on fixes, or modify pipeline script to add debug output.
+
+**How to use:**
+1. Go to a completed pipeline build
+2. Click "Replay" in left sidebar
+3. Modify the pipeline script directly in browser
+4. Click "Run" to execute modified version
+
+**What you get:**
+- Ability to modify Jenkinsfile without committing
+- Test fixes quickly before pushing to git
+- Add debug statements temporarily
+- Try different configurations
+
+**Common debugging modifications:**
+```groovy
+// Original failing step
+stage('Test') {
+  steps {
+    sh 'npm test'
+  }
+}
+
+// Modified for debugging via Replay
+stage('Test') {
+  steps {
+    // Add environment inspection
+    sh '''
+      echo "NODE_VERSION: $(node --version)"
+      echo "NPM_VERSION: $(npm --version)"
+      echo "PATH: $PATH"
+    '''
+
+    // Run with more verbose output
+    sh 'npm test -- --verbose'
+
+    // Or run subset of tests
+    sh 'npm test -- --testPathPattern=failing-test.js'
+  }
+}
+```
+
+**Important notes:**
+- Replay uses the same commit, workspace, and parameters
+- Changes are NOT saved - commit to Jenkinsfile when working
+- Can replay multiple times with different modifications
+
+### 3. Workspace Inspection
+
+**When to use:** Need to examine build artifacts, inspect generated files, check directory structure, or understand what files were created during build.
+
+**How to access:**
+1. Navigate to build (job → build number)
+2. Click "Workspace" in left sidebar
+3. Browse directory structure
+
+Or use "Wipe Out Workspace" plugin to manually inspect:
+```groovy
+// Add to Jenkinsfile to preserve workspace
+options {
+  skipDefaultCheckout(false)
+  preserveStashes(buildCount: 5)
+}
+```
+
+**What you get:**
+- Browse all files in workspace
+- Download individual files
+- View file contents directly in browser
+- Inspect build artifacts and logs
+
+**Access workspace via SSH/command line:**
+```groovy
+// Print workspace location for SSH access
+stage('Debug') {
+  steps {
+    echo "Workspace: ${env.WORKSPACE}"
+    sh 'echo "Access workspace at: $(hostname):$PWD"'
+  }
+}
+```
+
+**Archive artifacts for later inspection:**
+```groovy
+post {
+  always {
+    archiveArtifacts artifacts: '''
+      **/target/*.jar,
+      **/build/libs/*.jar,
+      **/*.log,
+      test-results/**/*.xml
+    ''', allowEmptyArchive: true
+  }
+}
+```
+
+**Tips for workspace debugging:**
+- Check directory structure: `sh 'find . -type f | head -20'`
+- Verify files were created: `sh 'ls -la dist/ || echo "dist/ not found"'`
+- Check file permissions: `sh 'ls -la'`
+- Search for files: `sh 'find . -name "*.log"'`

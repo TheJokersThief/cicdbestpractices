@@ -1,0 +1,128 @@
+---
+title: CircleCI Debugging
+---
+
+## Debugging Tools for CircleCI
+
+CircleCI provides powerful debugging features including SSH access and insights dashboards to help diagnose failures.
+
+### 1. SSH Rerun for Interactive Debugging
+
+**When to use:** Need to inspect the CI environment interactively, investigate why a step fails, or debug environment-specific configuration issues.
+
+**How to enable:**
+
+1. Go to your failed job in CircleCI dashboard
+2. Click "Rerun" dropdown in top right
+3. Select "Rerun job with SSH"
+4. Wait for job to start
+5. Copy SSH command from job output:
+   ```
+   SSH enabled. To connect:
+   ssh -p PORT USERNAME@HOST
+   ```
+
+**What you get:**
+- Full SSH access to the running container
+- All environment variables and configuration
+- Ability to run failed commands manually
+- Inspect files and directory structure
+
+**Usage tips:**
+```bash
+# Navigate to working directory
+cd ~/project
+
+# Check environment
+printenv | grep -i api
+env | sort
+
+# Re-run failed command with modifications
+npm test -- --verbose
+
+# Check tool versions
+node --version
+npm --version
+
+# Inspect files
+ls -la
+cat .circleci/config.yml
+```
+
+**Important notes:**
+- SSH session times out after 10 minutes of inactivity (configurable up to 2 hours)
+- Connection stays open for duration even if steps complete
+- Type `exit` or close terminal when done to free resources
+
+### 2. Insights Dashboard
+
+**When to use:** Identify patterns in failures, find flaky tests, track pipeline performance over time, or spot bottlenecks.
+
+**How to access:**
+1. Go to CircleCI dashboard
+2. Click "Insights" in left sidebar
+3. Select your project
+
+**What you see:**
+- **Success rate over time:** Spot trends in pipeline reliability
+- **Duration trends:** See if builds are getting slower
+- **Flaky test detection:** Tests that pass/fail intermittently
+- **Most failed tests:** Focus debugging efforts on problematic tests
+- **Credit usage:** Track resource consumption
+
+**Key metrics to monitor:**
+- Pipeline success rate (target: >95%)
+- Mean time to recovery (MTTR)
+- Test flakiness percentage
+- Job duration trends (catch performance regressions)
+
+### 3. Step Output and Timing
+
+**When to use:** Identify which specific step is failing or taking too long, understand the execution flow, or optimize slow pipelines.
+
+**How to access:**
+Built into every job view - each step is expandable with timing information.
+
+**What you get:**
+- Timing for each step (helps identify bottlenecks)
+- Full stdout/stderr output
+- Color-coded output (errors in red)
+- Collapsible sections for readability
+
+**Debugging tips:**
+```yaml
+# Add timing for custom commands
+- run:
+    name: "Run tests with timing"
+    command: |
+      echo "Starting tests at $(date)"
+      time npm test
+      echo "Finished tests at $(date)"
+
+# Add debug output
+- run:
+    name: "Debug environment"
+    command: |
+      echo "=== Environment Variables ==="
+      env | sort
+      echo "=== Installed tools ==="
+      node --version
+      npm --version
+      echo "=== Disk space ==="
+      df -h
+```
+
+**Store and access logs as artifacts:**
+```yaml
+- store_artifacts:
+    path: test-results
+    destination: test-results
+
+- store_artifacts:
+    path: /tmp/logs
+    destination: logs
+```
+
+Access artifacts via:
+- Job page → Artifacts tab
+- Or direct URL: `https://output.circle-artifacts.com/output/job/:job-id/artifacts/:container-index/:path`

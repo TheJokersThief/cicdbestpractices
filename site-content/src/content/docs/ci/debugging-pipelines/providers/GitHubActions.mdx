@@ -1,0 +1,114 @@
+---
+title: GitHub Actions Debugging
+---
+
+## Debugging Tools for GitHub Actions
+
+GitHub Actions provides several built-in debugging capabilities to help investigate failures quickly.
+
+### 1. Enable Debug Logging
+
+**When to use:** You need more verbose output to understand what's happening between steps, or want to see hidden commands and environment setup.
+
+**How to enable:**
+
+Add these secrets to your repository (Settings → Secrets and variables → Actions):
+- `ACTIONS_STEP_DEBUG` = `true` - Shows detailed step-by-step execution logs
+- `ACTIONS_RUNNER_DEBUG` = `true` - Shows runner diagnostic information
+
+**What you get:**
+- Detailed logs showing environment variable setup
+- Hidden commands executed by actions
+- Step-by-step execution trace
+- Runner diagnostic information
+
+**Example output difference:**
+
+Without debug logging:
+```
+Run actions/checkout@v4
+```
+
+With debug logging:
+```
+##[debug]Evaluating condition for step: 'Checkout code'
+##[debug]Evaluating: success()
+##[debug]Evaluating success:
+##[debug]=> true
+##[debug]Result: true
+##[debug]Starting: Checkout code
+Run actions/checkout@v4
+##[debug]Getting Git version info
+##[debug]Working directory is '/home/runner/work/repo'
+##[debug]Running command: git --version
+```
+
+### 2. Re-run Jobs with SSH Access
+
+**When to use:** You need to inspect the CI environment interactively, debug environment-specific issues, or investigate complex failures hands-on.
+
+**How to use:**
+
+Add the tmate action to your workflow (triggers on failure):
+```yaml
+- name: Setup tmate session
+  uses: mxschmitt/action-tmate@v3
+  if: failure()
+  timeout-minutes: 30
+```
+
+Or add it temporarily to debug a specific step:
+```yaml
+- name: Debug with tmate
+  uses: mxschmitt/action-tmate@v3
+  if: always()  # Run even if previous steps succeed
+```
+
+**What you get:**
+- SSH access to the runner environment
+- Connection string displayed in logs
+- Ability to run commands interactively
+- Inspect files, environment variables, installed tools
+
+**Usage tips:**
+- Remove or comment out before merging to production
+- Use `timeout-minutes` to prevent hanging
+- Set repository secret `ACTIONS_STEP_DEBUG` to see connection info sooner
+
+### 3. Download and Inspect Artifacts
+
+**When to use:** You need to examine build outputs, test reports, logs, or coverage data after the run completes.
+
+**How to access:**
+1. Go to Actions tab in your repository
+2. Click on the workflow run
+3. Scroll to bottom to see Artifacts section
+4. Click to download zip file
+
+**Upload debugging artifacts:**
+
+```yaml
+- name: Upload test results
+  uses: actions/upload-artifact@v4
+  if: always()  # Upload even if tests fail
+  with:
+    name: test-results
+    path: |
+      test-results/
+      coverage/
+      **/*.log
+    retention-days: 7
+```
+
+**Common artifacts to upload for debugging:**
+- Test results and reports (`test-results/`, `junit.xml`)
+- Code coverage reports (`coverage/`, `htmlcov/`)
+- Build logs (`*.log`, `build.log`)
+- Screenshots from E2E tests (`screenshots/`, `cypress/screenshots/`)
+- Application bundles or builds (`dist/`, `build/`)
+
+**Tips:**
+- Use `if: always()` to upload even when steps fail
+- Set reasonable `retention-days` to save storage costs
+- Use descriptive artifact names for multiple uploads
+- Combine related files in single artifact to reduce clutter

@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 500" role="img" aria-labelledby="checklist-title checklist-desc">
+  <title id="checklist-title">Quick Debugging Checklist</title>
+  <desc id="checklist-desc">A checklist of 7 quick debugging steps with time estimates</desc>
+
+  <defs>
+    <style>
+      .checklist-bg { fill: #f8fafc; stroke: #cbd5e1; stroke-width: 2; }
+      .header { fill: #3b82f6; }
+      .header-text { fill: white; font-family: system-ui, -apple-system, sans-serif; font-size: 24px; font-weight: 700; text-anchor: middle; }
+      .item-box { fill: white; stroke: #e2e8f0; stroke-width: 1; }
+      .item-text { fill: #1e293b; font-family: system-ui, -apple-system, sans-serif; font-size: 15px; font-weight: 500; }
+      .item-time { fill: #64748b; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-style: italic; }
+      .checkbox { fill: white; stroke: #64748b; stroke-width: 2; }
+      .checkmark { fill: none; stroke: #10b981; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect x="20" y="20" width="660" height="460" rx="12" class="checklist-bg"/>
+
+  <!-- Header -->
+  <rect x="20" y="20" width="660" height="70" rx="12" class="header"/>
+  <text x="350" y="62" class="header-text">Quick Checks - Start Here</text>
+
+  <!-- Checklist items -->
+  <!-- Item 1 -->
+  <g transform="translate(40, 110)">
+    <rect width="620" height="45" rx="6" class="item-box"/>
+    <rect x="10" y="12" width="20" height="20" rx="3" class="checkbox"/>
+    <text x="45" y="27" class="item-text">1. Clear cache and re-run</text>
+    <text x="45" y="40" class="item-time">⏱️ 30 seconds</text>
+  </g>
+
+  <!-- Item 2 -->
+  <g transform="translate(40, 165)">
+    <rect width="620" height="45" rx="6" class="item-box"/>
+    <rect x="10" y="12" width="20" height="20" rx="3" class="checkbox"/>
+    <text x="45" y="27" class="item-text">2. Check external service status</text>
+    <text x="45" y="40" class="item-time">⏱️ 1 minute</text>
+  </g>
+
+  <!-- Item 3 -->
+  <g transform="translate(40, 220)">
+    <rect width="620" height="45" rx="6" class="item-box"/>
+    <rect x="10" y="12" width="20" height="20" rx="3" class="checkbox"/>
+    <text x="45" y="27" class="item-text">3. Verify secrets and credentials</text>
+    <text x="45" y="40" class="item-time">⏱️ 1 minute</text>
+  </g>
+
+  <!-- Item 4 -->
+  <g transform="translate(40, 275)">
+    <rect width="620" height="45" rx="6" class="item-box"/>
+    <rect x="10" y="12" width="20" height="20" rx="3" class="checkbox"/>
+    <text x="45" y="27" class="item-text">4. Compare with last successful run</text>
+    <text x="45" y="40" class="item-time">⏱️ 2 minutes</text>
+  </g>
+
+  <!-- Item 5 -->
+  <g transform="translate(40, 330)">
+    <rect width="620" height="45" rx="6" class="item-box"/>
+    <rect x="10" y="12" width="20" height="20" rx="3" class="checkbox"/>
+    <text x="45" y="27" class="item-text">5. Check for concurrent builds</text>
+    <text x="45" y="40" class="item-time">⏱️ 1 minute</text>
+  </g>
+
+  <!-- Item 6 -->
+  <g transform="translate(40, 385)">
+    <rect width="620" height="45" rx="6" class="item-box"/>
+    <rect x="10" y="12" width="20" height="20" rx="3" class="checkbox"/>
+    <text x="45" y="27" class="item-text">6. Review recent dependency updates</text>
+    <text x="45" y="40" class="item-time">⏱️ 2 minutes</text>
+  </g>
+
+  <!-- Item 7 -->
+  <g transform="translate(40, 440)">
+    <rect width="620" height="45" rx="6" class="item-box"/>
+    <rect x="10" y="12" width="20" height="20" rx="3" class="checkbox"/>
+    <text x="45" y="27" class="item-text">7. Try locally first</text>
+    <text x="45" y="40" class="item-time">⏱️ 5 minutes</text>
+  </g>
+
+  <!-- Footer note -->
+  <text x="350" y="500" style="fill: #64748b; font-family: system-ui, -apple-system, sans-serif; font-size: 13px; text-anchor: middle;">
+    These checks resolve 60% of pipeline failures in under 5 minutes
+  </text>
+</svg>
