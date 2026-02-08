@@ -1,0 +1,172 @@
+---
+title: CircleCI Local Validation
+---
+
+## Local Validation with CircleCI CLI
+
+CircleCI's official CLI lets you validate config syntax and run jobs locally—perfect for catching errors before push.
+
+### Installation
+
+```bash
+curl -fLSs https://circle.ci/cli | bash
+```
+
+Verify it works:
+```bash
+circleci version
+```
+
+### Essential Commands
+
+**Validate config syntax:**
+```bash
+circleci config validate
+
+# Validate specific file
+circleci config validate -c .circleci/config.yml
+```
+
+This catches 80% of config errors instantly without needing to push or run anything.
+
+**Run job locally:**
+```bash
+# Run entire pipeline (if supported)
+circleci local execute
+
+# Run specific job
+circleci local execute --job build
+circleci local execute --job test
+```
+
+**Pass environment variables:**
+```bash
+circleci local execute --job build \
+  --env NODE_ENV=development \
+  --env API_URL=http://localhost:3000 \
+  --env DATABASE_URL=postgres://localhost/test
+```
+
+**Process config (expand orbs):**
+```bash
+circleci config process .circleci/config.yml
+```
+
+This shows you what your config looks like after orbs are expanded—helpful for debugging orb usage.
+
+### Important Limitations
+
+CircleCI's local executor has significant constraints:
+
+**Only `machine` executor works locally:**
+```yaml
+# ✅ Works locally
+jobs:
+  build:
+    machine:
+      image: ubuntu-2004:current
+    steps:
+      - checkout
+      - run: npm test
+
+# ❌ Won't run locally (but syntax validates)
+jobs:
+  build:
+    docker:
+      - image: node:18
+    steps:
+      - checkout
+      - run: npm test
+```
+
+**Other limitations:**
+- ❌ No workflow execution (only individual jobs)
+- ❌ Orbs don't execute locally (but expand with `config process`)
+- ❌ Can't access CircleCI contexts or project environment variables
+- ❌ No workspace persistence between jobs
+- ❌ Remote Docker (`setup_remote_docker`) doesn't work
+
+### What to Use It For
+
+**Best use cases:**
+
+✅ **Config syntax validation** (most valuable)
+```bash
+# Before every commit with config changes
+circleci config validate
+```
+
+✅ **Testing job script logic**
+- If using `machine` executor, full local execution
+- Validates bash scripts, commands, and step ordering
+
+✅ **Quick verification before push**
+- Catches typos, missing keys, invalid YAML
+- Prevents "fix config" commits
+
+✅ **Debugging orb expansion**
+```bash
+circleci config process .circleci/config.yml > expanded-config.yml
+```
+See what your config actually does after orbs expand.
+
+**Skip it for:**
+- Jobs using `docker` or `windows` executors
+- Testing workflows with dependencies
+- Validating orb behavior
+- Full pipeline integration testing
+
+### Workflow Integration
+
+**Pre-commit validation:**
+
+Create `.git/hooks/pre-commit`:
+```bash
+#!/bin/bash
+if git diff --cached --name-only | grep -q "^.circleci/"; then
+  echo "Validating CircleCI config..."
+  circleci config validate
+  if [ $? -ne 0 ]; then
+    echo "❌ CircleCI config validation failed"
+    exit 1
+  fi
+  echo "✅ Config valid"
+fi
+```
+
+Make it executable:
+```bash
+chmod +x .git/hooks/pre-commit
+```
+
+Now config is validated automatically on every commit that touches CircleCI files.
+
+### Common Issues
+
+**"Error: Unable to parse YAML"**
+- Check for YAML syntax errors (indentation, missing colons)
+- Run through a YAML validator
+- Common issue: tabs instead of spaces
+
+**"Error: job ... not found"**
+- Ensure job name matches exactly (case-sensitive)
+- Check for typos in job name
+- Verify job is defined in config
+
+**"Docker not running"**
+- For local execute, Docker must be running
+- Check with: `docker ps`
+- Start Docker Desktop if needed
+
+**"Permission denied"**
+- CLI might not have execute permissions
+- Fix: `chmod +x $(which circleci)`
+- Or reinstall with proper permissions
+
+### Tips
+
+- **Always validate before push:** Make it a habit—`circleci config validate` takes 1 second
+- **Use for syntax only if not on machine executor:** Config validation is still valuable even if you can't run locally
+- **Expand orbs to debug:** `circleci config process` reveals what orbs actually do
+- **Combine with Docker Compose:** For Docker-based jobs, use Docker Compose for local testing (see generic approach)
+- **Check CLI updates:** Run `circleci update` periodically for latest features

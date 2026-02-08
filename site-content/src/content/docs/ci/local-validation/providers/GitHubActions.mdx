@@ -1,0 +1,139 @@
+---
+title: GitHub Actions Local Validation
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+## Local Validation with act
+
+**act** runs GitHub Actions workflows locally using Docker, giving you instant feedback without pushing to GitHub.
+
+### Installation
+
+<Tabs>
+<TabItem label="macOS">
+```bash
+brew install act
+```
+</TabItem>
+
+<TabItem label="Linux">
+```bash
+curl https://raw.githubusercontent.com/nektos/act/master/install.sh | sudo bash
+```
+</TabItem>
+
+<TabItem label="Windows">
+```powershell
+# Chocolatey
+choco install act-cli
+
+# Scoop
+scoop install act
+```
+</TabItem>
+</Tabs>
+
+**Requirements:** Docker must be installed and running.
+
+### Essential Commands
+
+**Run workflows:**
+```bash
+act                    # Run all push event workflows
+act pull_request       # Simulate PR event
+act -j job-name        # Run specific job
+act -l                 # List all jobs
+```
+
+**Working with secrets:**
+```bash
+# Inline
+act -s API_KEY=value -s TOKEN=abc123
+
+# From file (recommended)
+echo "API_KEY=value" >> .secrets
+echo ".secrets" >> .gitignore
+act
+```
+
+**Debugging:**
+```bash
+act -n                 # Dry run (show what would execute)
+act --verbose          # Verbose output
+act -j build --rm=false  # Keep container for inspection
+```
+
+### Common Issues
+
+**"Error: Cannot connect to Docker daemon"**
+- Solution: Ensure Docker is running
+- Check with: `docker ps`
+
+**"No workflows found"**
+- Solution: Ensure you're in a repo with `.github/workflows/` directory
+- Verify with: `ls .github/workflows/`
+
+**"Action not found"**
+- Some marketplace actions only work on GitHub
+- Check action documentation for local support
+- Consider using alternative actions or mocking
+
+**Slow first run:**
+- act downloads Docker images on first run
+- Subsequent runs use cached images and are fast
+- Choose "Medium" image size for best balance
+
+### What Works Locally
+
+✅ **Runs successfully:**
+- Checkout code
+- Install dependencies
+- Run tests
+- Build artifacts
+- Run scripts
+- Use most marketplace actions
+- Job dependencies and ordering
+
+❌ **Won't work locally:**
+- Upload artifacts to GitHub
+- Create releases
+- Comment on PRs/issues
+- OIDC token authentication (AWS, Azure, GCP)
+- GitHub API write operations
+- Some GitHub-specific actions
+
+### Workflow Integration
+
+**Pre-push validation:**
+```bash
+# Add to your workflow
+git add .
+act
+git commit -m "Add feature"
+git push
+```
+
+**Git hook automation:**
+
+Create `.git/hooks/pre-push`:
+```bash
+#!/bin/bash
+echo "Validating workflows with act..."
+act -q
+```
+
+Make it executable:
+```bash
+chmod +x .git/hooks/pre-push
+```
+
+Now workflows validate automatically before every push.
+
+### Tips
+
+- **Start small:** Test individual jobs with `act -j` before running full workflows
+- **Use .secrets file:** Avoid typing secrets repeatedly
+- **Check logs carefully:** act output differs slightly from GitHub's UI
+- **Keep Docker images updated:** `docker pull` the images act uses periodically
+- **Skip slow jobs locally:** Use `if: github.event_name != 'workflow_dispatch'` to skip jobs in local runs

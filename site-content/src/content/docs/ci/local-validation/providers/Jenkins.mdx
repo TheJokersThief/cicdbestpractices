@@ -1,0 +1,222 @@
+---
+title: Jenkins Local Validation
+---
+
+## Local Validation with Docker
+
+Jenkins doesn't have an official local runner, but you can replicate your CI environment using Docker Compose to validate pipeline logic before pushing.
+
+### When to Use This Approach
+
+Use Docker-based local validation when:
+- Testing Jenkinsfile script logic
+- Validating build commands and dependencies
+- Reproducing CI environment locally
+- Developing new pipeline stages
+
+**Note:** This won't execute Jenkins-specific features (pipeline syntax, plugins), but validates the actual work your pipeline does.
+
+### Working Example
+
+Create `docker-compose.ci.yml` in your repository:
+
+```yaml
+version: '3.8'
+
+services:
+  ci-validator:
+    # Match your Jenkins agent image
+    image: node:18-bullseye
+
+    working_dir: /app
+
+    # Mount your code
+    volumes:
+      - .:/app
+      - /app/node_modules  # Use container's node_modules
+
+    # Replicate your pipeline stages
+    command: |
+      bash -c "
+        echo 'Stage: Install Dependencies' &&
+        npm ci &&
+
+        echo 'Stage: Lint' &&
+        npm run lint &&
+
+        echo 'Stage: Test' &&
+        npm test &&
+
+        echo 'Stage: Build' &&
+        npm run build &&
+
+        echo '✅ All stages passed'
+      "
+
+    # Set environment variables
+    environment:
+      NODE_ENV: test
+      CI: true
+```
+
+### Basic Usage
+
+```bash
+# Run full validation
+docker-compose -f docker-compose.ci.yml run --rm ci-validator
+
+# Run specific stage
+docker-compose -f docker-compose.ci.yml run --rm ci-validator bash -c "npm test"
+
+# Interactive shell for debugging
+docker-compose -f docker-compose.ci.yml run --rm ci-validator bash
+```
+
+### Customization for Your Stack
+
+**Match your Jenkins agent image:**
+
+```yaml
+# For Java projects
+image: maven:3.9-eclipse-temurin-17
+
+# For Python projects
+image: python:3.11-slim
+
+# For multi-language projects
+image: ubuntu:22.04
+```
+
+**Add service dependencies:**
+
+If your Jenkins pipeline uses databases or caches:
+
+```yaml
+services:
+  ci-validator:
+    image: node:18
+    depends_on:
+      - postgres
+      - redis
+    environment:
+      DATABASE_URL: postgres://postgres:password@postgres:5432/test
+      REDIS_URL: redis://redis:6379
+    command: |
+      bash -c "
+        npm ci &&
+        npm test  # Tests now have access to postgres and redis
+      "
+
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: test
+
+  redis:
+    image: redis:7-alpine
+```
+
+**Mount additional volumes:**
+
+```yaml
+volumes:
+  - .:/app
+  - ~/.m2:/root/.m2  # Maven cache
+  - ~/.gradle:/root/.gradle  # Gradle cache
+  - ./build:/app/build  # Preserve build artifacts
+```
+
+### Replicating Jenkins Stages
+
+Map your Jenkinsfile stages to Docker Compose commands:
+
+**Your Jenkinsfile:**
+```groovy
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh './deploy.sh'
+            }
+        }
+    }
+}
+```
+
+**Equivalent Docker Compose:**
+```yaml
+services:
+  ci-validator:
+    image: maven:3.9-eclipse-temurin-17
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: |
+      bash -c "
+        echo 'Stage: Build' &&
+        mvn clean package &&
+
+        echo 'Stage: Test' &&
+        mvn test &&
+
+        echo 'Stage: Deploy' &&
+        ./deploy.sh
+      "
+```
+
+### Limitations
+
+This approach has trade-offs:
+
+**What it validates:**
+- ✅ Build commands work
+- ✅ Tests pass in similar environment
+- ✅ Dependencies install correctly
+- ✅ Scripts execute without errors
+
+**What it doesn't validate:**
+- ❌ Jenkins pipeline syntax (use Blue Ocean Pipeline Editor instead)
+- ❌ Jenkins plugin behavior
+- ❌ Jenkins-specific features (credentials, shared libraries)
+- ❌ Distributed builds across multiple agents
+
+**Maintenance required:**
+- Keep Docker Compose config in sync with Jenkinsfile changes
+- Update base images to match Jenkins agent updates
+- Manually replicate environment variables
+
+### Tips
+
+- **Start simple:** Begin with a single stage, add complexity as needed
+- **Match the environment:** Use the same base image as your Jenkins agents
+- **Test incrementally:** Run individual commands interactively to debug
+- **Version the config:** Commit `docker-compose.ci.yml` alongside your Jenkinsfile
+- **Document differences:** Note any environment differences between Docker and Jenkins in README
+
+### Alternative: Jenkins CLI
+
+For Jenkinsfile syntax validation only:
+
+```bash
+# Install Jenkins CLI
+wget http://your-jenkins-server/jnlpJars/jenkins-cli.jar
+
+# Validate pipeline syntax
+java -jar jenkins-cli.jar -s http://your-jenkins-server \
+  -auth user:token \
+  declarative-linter < Jenkinsfile
+```
+
+This validates syntax but doesn't run the pipeline. Combine with Docker Compose for complete validation.

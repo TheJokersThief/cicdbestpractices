@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620">
+  <defs>
+    <style>
+      .sketch-text { font-family: 'Comic Sans MS', 'Marker Felt', cursive; font-size: 14px; }
+      .sketch-text-large { font-family: 'Comic Sans MS', 'Marker Felt', cursive; font-size: 18px; font-weight: bold; }
+      .sketch-text-small { font-family: 'Comic Sans MS', 'Marker Felt', cursive; font-size: 12px; }
+      .red-stroke { stroke: #e63946; stroke-width: 2.5; fill: none; }
+      .green-stroke { stroke: #2a9d8f; stroke-width: 2.5; fill: none; }
+      .gray-stroke { stroke: #6c757d; stroke-width: 2; fill: none; }
+    </style>
+  </defs>
+
+  <!-- Title -->
+  <text x="500" y="35" text-anchor="middle" class="sketch-text-large" fill="#212529">
+    CI Feedback Loop Comparison
+  </text>
+
+  <!-- BEFORE Section (all content left of divider at x=500) -->
+  <g id="before-section">
+    <!-- Section label -->
+    <text x="250" y="75" text-anchor="middle" class="sketch-text" fill="#e63946" font-weight="bold">
+      ❌ BEFORE (16+ minutes)
+    </text>
+
+    <!-- Step 1: Write code -->
+    <rect x="50" y="95" width="74" height="34" class="gray-stroke" fill="#f8f9fa" rx="4"/>
+    <text x="87" y="117" text-anchor="middle" class="sketch-text-small" fill="#212529">
+      Write code
+    </text>
+
+    <!-- Arrow 1 -->
+    <path d="M 124,112 Q 134,112 144,112" class="gray-stroke" stroke-dasharray="2,2"/>
+    <polygon points="144,112 139,109 139,115" fill="#6c757d"/>
+
+    <!-- Step 2: Push -->
+    <rect x="148" y="95" width="74" height="34" class="gray-stroke" fill="#f8f9fa" rx="4"/>
+    <text x="185" y="117" text-anchor="middle" class="sketch-text-small" fill="#212529">
+      Push
+    </text>
+
+    <!-- Arrow 2 -->
+    <path d="M 222,112 Q 250,112 278,112" class="red-stroke" stroke-dasharray="2,2"/>
+    <polygon points="278,112 273,109 273,115" fill="#e63946"/>
+
+    <!-- Step 3: Wait 8 min -->
+    <rect x="282" y="95" width="100" height="34" class="red-stroke" fill="#ffe5e5" rx="4"/>
+    <text x="332" y="117" text-anchor="middle" class="sketch-text-small" fill="#d32f2f">
+      ⏰ Wait 8 min
+    </text>
+
+    <!-- Arrow 3 -->
+    <path d="M 382,112 Q 402,112 422,112" class="red-stroke" stroke-dasharray="2,2"/>
+    <polygon points="422,112 417,109 417,115" fill="#e63946"/>
+
+    <!-- Step 4: CI Fails -->
+    <rect x="426" y="95" width="68" height="34" class="red-stroke" fill="#ffe5e5" rx="4"/>
+    <text x="460" y="117" text-anchor="middle" class="sketch-text-small" fill="#d32f2f">
+      ❌ CI fails
+    </text>
+
+    <!-- Arrow down to Fix (enters Fix from right) -->
+    <path d="M 460,129 L 460,200 Q 360,242 297,242" class="red-stroke" stroke-dasharray="2,2"/>
+    <polygon points="297,242 302,239 302,245" fill="#e63946"/>
+
+    <!-- Step 5: Fix (centered in before section, below main row) -->
+    <rect x="203" y="225" width="94" height="34" class="gray-stroke" fill="#f8f9fa" rx="4"/>
+    <text x="250" y="247" text-anchor="middle" class="sketch-text-small" fill="#212529">
+      Fix code
+    </text>
+
+    <!-- Arrow back: Fix code → Write code (into bottom of Write code) -->
+    <path d="M 203,242 L 87,242 L 87,129"
+          class="red-stroke" stroke-dasharray="2,2"/>
+    <polygon points="87,129 82,134 92,134" fill="#e63946"/>
+
+    <!-- Total time -->
+    <text x="250" y="305" text-anchor="middle" class="sketch-text" fill="#e63946" font-weight="bold">
+      Total: 16+ minutes 😤
+    </text>
+  </g>
+
+  <!-- Divider -->
+  <line x1="500" y1="55" x2="500" y2="570" stroke="#dee2e6" stroke-width="2" stroke-dasharray="5,5"/>
+
+  <!-- AFTER Section -->
+  <g id="after-section">
+    <!-- Section label -->
+    <text x="750" y="75" text-anchor="middle" class="sketch-text" fill="#2a9d8f" font-weight="bold">
+      ✅ AFTER (2 minutes)
+    </text>
+
+    <!-- Step 1: Write code -->
+    <rect x="520" y="95" width="94" height="34" class="gray-stroke" fill="#f8f9fa" rx="4"/>
+    <text x="567" y="117" text-anchor="middle" class="sketch-text-small" fill="#212529">
+      Write code
+    </text>
+
+    <!-- Arrow 1 -->
+    <path d="M 614,112 Q 641,112 668,112" class="green-stroke" stroke-dasharray="2,2"/>
+    <polygon points="668,112 663,109 663,115" fill="#2a9d8f"/>
+
+    <!-- Step 2: Validate 30s -->
+    <rect x="672" y="95" width="122" height="34" class="green-stroke" fill="#e5f5f3" rx="4"/>
+    <text x="733" y="117" text-anchor="middle" class="sketch-text-small" fill="#0a6e5c">
+      ⚡ Validate 30s
+    </text>
+
+    <!-- Arrow 2 -->
+    <path d="M 794,112 Q 821,112 848,112" class="green-stroke" stroke-dasharray="2,2"/>
+    <polygon points="848,112 843,109 843,115" fill="#2a9d8f"/>
+
+    <!-- Step 3: Fix -->
+    <rect x="852" y="95" width="94" height="34" class="gray-stroke" fill="#f8f9fa" rx="4"/>
+    <text x="899" y="117" text-anchor="middle" class="sketch-text-small" fill="#212529">
+      Fix
+    </text>
+
+    <!-- Arrow down to Push -->
+    <path d="M 899,129 L 899,221" class="green-stroke" stroke-dasharray="2,2"/>
+    <polygon points="899,221 896,216 902,216" fill="#2a9d8f"/>
+
+    <!-- Step 4: Push -->
+    <rect x="852" y="225" width="94" height="34" class="gray-stroke" fill="#f8f9fa" rx="4"/>
+    <text x="899" y="247" text-anchor="middle" class="sketch-text-small" fill="#212529">
+      Push
+    </text>
+
+    <!-- Arrow down to CI Passes -->
+    <path d="M 899,259 L 899,351" class="green-stroke" stroke-dasharray="2,2"/>
+    <polygon points="899,351 896,346 902,346" fill="#2a9d8f"/>
+
+    <!-- Step 5: CI Passes -->
+    <rect x="835" y="355" width="104" height="34" class="green-stroke" fill="#e5f5f3" rx="4"/>
+    <text x="887" y="377" text-anchor="middle" class="sketch-text-small" fill="#0a6e5c">
+      ✅ CI passes
+    </text>
+
+    <!-- Cycle arrow: Fix → Write code (via right side, into bottom of Write code) -->
+    <path d="M 946,112 L 970,112 L 970,200 Q 620,200 567,129" class="green-stroke" stroke-dasharray="2,2"/>
+    <polygon points="567,129 562,134 572,134" fill="#2a9d8f"/>
+
+    <!-- Total time -->
+    <text x="750" y="430" text-anchor="middle" class="sketch-text" fill="#2a9d8f" font-weight="bold">
+      Total: 2+ minutes 🎉
+    </text>
+  </g>
+
+  <!-- Bottom summary -->
+  <g id="summary">
+    <rect x="250" y="575" width="500" height="40" rx="6" ry="6" fill="#fffbeb" stroke="#f59e0b" stroke-width="2"/>
+    <text x="500" y="599" text-anchor="middle" class="sketch-text" fill="#92400e">
+      ⚡ 87.5% faster • Zero "fix CI" commits • Work offline
+    </text>
+  </g>
+</svg>

@@ -1,68 +1,75 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" role="img" aria-labelledby="debugging-mindset-title debugging-mindset-desc">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 400" role="img" aria-labelledby="debugging-mindset-title debugging-mindset-desc">
   <title id="debugging-mindset-title">Debugging Mindset Cycle</title>
   <desc id="debugging-mindset-desc">A circular flowchart showing the debugging process: Observe, Hypothesize, Test, Verify, with arrows indicating iteration</desc>
 
-  <!-- Define styles -->
   <defs>
+    <!-- Sketch-style roughness -->
+    <filter id="sketch" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="turbulence" baseFrequency="0.05" numOctaves="2" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.2" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+
     <style>
-      .box { fill: #3b82f6; stroke: #1e40af; stroke-width: 2; }
-      .text { fill: white; font-family: system-ui, -apple-system, sans-serif; font-size: 18px; font-weight: 600; text-anchor: middle; }
-      .description { fill: #64748b; font-family: system-ui, -apple-system, sans-serif; font-size: 14px; text-anchor: middle; }
-      .arrow { fill: none; stroke: #64748b; stroke-width: 3; marker-end: url(#arrowhead); }
-      .feedback-arrow { fill: none; stroke: #ef4444; stroke-width: 3; stroke-dasharray: 8,4; marker-end: url(#arrowhead-red); }
-      .label { fill: #64748b; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-style: italic; }
+      .box { fill: #fff; stroke: #339af0; stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; filter: url(#sketch); }
+      .text { fill: #1e293b; font-family: "Caveat", "Segoe Print", "Comic Sans MS", cursive; font-size: 22px; font-weight: 600; text-anchor: middle; }
+      .description { fill: #64748b; font-family: "Caveat", "Segoe Print", "Comic Sans MS", cursive; font-size: 16px; text-anchor: middle; }
+      .arrow { fill: none; stroke: #64748b; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrowhead); }
+      .feedback-arrow { fill: none; stroke: #e03131; stroke-width: 2.5; stroke-dasharray: 6,4; stroke-linecap: round; stroke-linejoin: miter; marker-end: url(#arrowhead-red); }
+      .label { fill: #64748b; font-family: "Caveat", "Segoe Print", "Comic Sans MS", cursive; font-size: 14px; font-style: italic; }
     </style>
 
-    <!-- Arrow markers -->
     <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-      <polygon points="0 0, 10 3, 0 6" fill="#64748b" />
+      <polygon points="0 0, 10 3, 0 6" fill="#64748b" stroke="#64748b" stroke-width="0.5"/>
     </marker>
     <marker id="arrowhead-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-      <polygon points="0 0, 10 3, 0 6" fill="#ef4444" />
+      <polygon points="0 0, 10 3, 0 6" fill="#e03131" stroke="#e03131" stroke-width="0.5"/>
     </marker>
   </defs>
 
   <!-- Step 1: Observe -->
-  <rect x="50" y="50" width="150" height="80" rx="8" class="box"/>
-  <text x="125" y="85" class="text">Observe</text>
-  <text x="125" y="105" class="description">Gather error info</text>
-  <text x="125" y="120" class="description">Read logs</text>
+  <rect x="50" y="50" width="150" height="80" rx="12" ry="12" class="box"/>
+  <text x="125" y="82" class="text">Observe</text>
+  <text x="125" y="102" class="description">Gather error info</text>
+  <text x="125" y="118" class="description">Read logs</text>
 
-  <!-- Arrow 1 to 2 -->
-  <path d="M 200 90 L 280 90" class="arrow"/>
+  <!-- Arrow 1 to 2 - slightly wobbly -->
+  <path d="M 200 90 Q 220 88 250 90" class="arrow"/>
 
   <!-- Step 2: Hypothesize -->
-  <rect x="280" y="50" width="150" height="80" rx="8" class="box"/>
-  <text x="355" y="85" class="text">Hypothesize</text>
-  <text x="355" y="105" class="description">Form a theory</text>
-  <text x="355" y="120" class="description">What could cause this?</text>
+  <rect x="250" y="50" width="200" height="80" rx="12" ry="12" class="box"/>
+  <text x="350" y="82" class="text">Hypothesize</text>
+  <text x="350" y="102" class="description">Form a theory</text>
+  <text x="350" y="118" class="description">What could cause this?</text>
 
   <!-- Arrow 2 to 3 -->
-  <path d="M 430 90 L 510 90" class="arrow"/>
+  <path d="M 450 90 Q 480 92 510 90" class="arrow"/>
 
   <!-- Step 3: Test -->
-  <rect x="510" y="50" width="150" height="80" rx="8" class="box"/>
-  <text x="585" y="85" class="text">Test</text>
-  <text x="585" y="105" class="description">Try a fix</text>
-  <text x="585" y="120" class="description">Make a change</text>
+  <rect x="510" y="50" width="150" height="80" rx="12" ry="12" class="box"/>
+  <text x="585" y="82" class="text">Test</text>
+  <text x="585" y="102" class="description">Try a fix</text>
+  <text x="585" y="118" class="description">Make a change</text>
 
-  <!-- Arrow 3 to 4 (downward) -->
-  <path d="M 585 130 L 585 200" class="arrow"/>
+  <!-- Arrow 3 to 4 (downward) - slight curve -->
+  <path d="M 585 130 Q 587 165 585 200" class="arrow"/>
 
   <!-- Step 4: Verify -->
-  <rect x="510" y="200" width="150" height="80" rx="8" class="box"/>
-  <text x="585" y="235" class="text">Verify</text>
-  <text x="585" y="255" class="description">Did it work?</text>
-  <text x="585" y="270" class="description">Run tests</text>
+  <rect x="510" y="200" width="150" height="80" rx="12" ry="12" class="box"/>
+  <text x="585" y="232" class="text">Verify</text>
+  <text x="585" y="252" class="description">Did it work?</text>
+  <text x="585" y="268" class="description">Run tests</text>
 
-  <!-- Arrow 4 back to 1 (feedback loop - red dashed) -->
-  <path d="M 510 240 L 400 240 Q 125 240 125 280 Q 125 320 125 320 L 125 130" class="feedback-arrow"/>
-  <text x="250" y="260" class="label">If fix didn't work, iterate with new information</text>
+  <!-- Arrow 4 back to 1 (feedback loop) - right angle path -->
+  <path d="M 510 240 L 125 240 L 125 130" class="feedback-arrow"/>
+  <text x="310" y="268" class="label" text-anchor="middle">
+  <tspan x="310" dy="0">If fix didn't work, iterate</tspan>
+  <tspan x="310" dy="18">with new information</tspan>
+</text>
 
-  <!-- Success path (downward from Verify) -->
-  <path d="M 585 280 L 585 330" class="arrow"/>
-  <text x="585" y="355" class="description" style="fill: #10b981; font-weight: 600;">✓ Problem Resolved</text>
+  <!-- Success path -->
+  <path d="M 585 280 Q 583 305 585 330" class="arrow"/>
+  <text x="585" y="355" class="description" style="fill: #2f9e44; font-weight: 600;">✓ Problem Resolved</text>
 
   <!-- Title -->
-  <text x="400" y="30" style="fill: #1e293b; font-family: system-ui, -apple-system, sans-serif; font-size: 22px; font-weight: 700; text-anchor: middle;">The Debugging Cycle</text>
+  <text x="400" y="30" style="fill: #1e293b; font-family: 'Caveat', 'Segoe Print', 'Comic Sans MS', cursive; font-size: 28px; font-weight: 700; text-anchor: middle;">The Debugging Cycle</text>
 </svg>

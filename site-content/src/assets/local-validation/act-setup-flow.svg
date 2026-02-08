@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 360">
+  <defs>
+    <style>
+      .sketch-text { font-family: 'Comic Sans MS', 'Marker Felt', cursive; font-size: 14px; }
+      .sketch-text-large { font-family: 'Comic Sans MS', 'Marker Felt', cursive; font-size: 18px; font-weight: bold; }
+      .sketch-text-small { font-family: 'Comic Sans MS', 'Marker Felt', cursive; font-size: 12px; }
+      .sketch-stroke { stroke: #495057; stroke-width: 2.5; fill: none; }
+      .green-stroke { stroke: #2a9d8f; stroke-width: 3; fill: none; }
+      .box-fill { fill: #f8f9fa; }
+      .optional-fill { fill: #fff8e1; }
+      .success-fill { fill: #e5f5f3; }
+    </style>
+  </defs>
+
+  <!-- Title -->
+  <text x="550" y="30" text-anchor="middle" class="sketch-text-large" fill="#212529">
+    Get Started with act in 3 Steps
+  </text>
+  <text x="550" y="50" text-anchor="middle" class="sketch-text-small" fill="#6c757d">
+    From zero to first local run in 5 minutes
+  </text>
+
+  <!-- Step 1: Install -->
+  <g id="step1">
+    <path d="M 40,70 Q 42,68 46,70 L 294,70 Q 298,72 294,76 L 294,196 Q 298,200 294,204 L 46,204 Q 42,200 46,196 L 46,76 Q 42,72 40,70 Z"
+          class="sketch-stroke" fill="#f8f9fa"/>
+
+    <!-- Step number -->
+    <circle cx="70" cy="95" r="16" class="sketch-stroke" fill="#4dabf7"/>
+    <text x="70" y="101" text-anchor="middle" class="sketch-text" fill="white" font-weight="bold">1</text>
+
+    <!-- Content -->
+    <text x="170" y="101" text-anchor="middle" class="sketch-text" fill="#212529" font-weight="bold">
+      Install act
+    </text>
+
+    <!-- Platform icons and commands -->
+    <text x="95" y="135" class="sketch-text-small" fill="#495057">
+      🍎 brew install act
+    </text>
+    <text x="95" y="155" class="sketch-text-small" fill="#495057">
+      🐧 curl ... | bash
+    </text>
+  </g>
+
+  <!-- Arrow 1 -->
+  <path d="M 298,137 Q 328,137 358,137" class="sketch-stroke" stroke-dasharray="3,3"/>
+  <polygon points="358,137 353,134 353,140" fill="#495057"/>
+
+  <!-- Step 2: Optional Config -->
+  <g id="step2">
+    <path d="M 364,70 Q 366,68 370,70 L 618,70 Q 622,72 618,76 L 618,196 Q 622,200 618,204 L 370,204 Q 366,200 370,196 L 370,76 Q 366,72 364,70 Z"
+          class="sketch-stroke" fill="#fff8e1" stroke-dasharray="5,5"/>
+
+    <!-- Step number -->
+    <circle cx="394" cy="95" r="16" class="sketch-stroke" fill="#ffd43b" stroke-dasharray="3,3"/>
+    <text x="394" y="101" text-anchor="middle" class="sketch-text" fill="#495057" font-weight="bold">2</text>
+
+    <!-- Content -->
+    <text x="494" y="101" text-anchor="middle" class="sketch-text" fill="#495057" font-weight="bold">
+      Optional: Create .actrc
+    </text>
+    <text x="494" y="125" text-anchor="middle" class="sketch-text-small" fill="#6c757d" font-style="italic">
+      (Choose default image size)
+    </text>
+    <text x="410" y="165" class="sketch-text-small" fill="#856404">
+      ⚠️ Skip if using defaults
+    </text>
+  </g>
+
+  <!-- Arrow 2 -->
+  <path d="M 622,137 Q 652,137 682,137" class="sketch-stroke" stroke-dasharray="3,3"/>
+  <polygon points="682,137 677,134 677,140" fill="#495057"/>
+
+  <!-- Step 3: Run act -->
+  <g id="step3">
+    <path d="M 688,70 Q 690,68 694,70 L 942,70 Q 946,72 942,76 L 942,196 Q 946,200 942,204 L 694,204 Q 690,200 694,196 L 694,76 Q 690,72 688,70 Z"
+          class="sketch-stroke" fill="#e5f5f3"/>
+
+    <!-- Step number -->
+    <circle cx="718" cy="95" r="16" class="sketch-stroke" fill="#51cf66"/>
+    <text x="718" y="101" text-anchor="middle" class="sketch-text" fill="white" font-weight="bold">3</text>
+
+    <!-- Content -->
+    <text x="815" y="101" text-anchor="middle" class="sketch-text" fill="#212529" font-weight="bold">
+      Run act
+    </text>
+
+    <!-- Terminal output -->
+    <rect x="705" y="120" width="220" height="65" rx="6" fill="#2d333b" stroke="#495057" stroke-width="1.5"/>
+    <text x="715" y="145" class="sketch-text-small" fill="#58a6ff" font-family="Monaco, monospace">
+      $ act
+    </text>
+    <text x="715" y="165" class="sketch-text-small" fill="#3fb950" font-family="Monaco, monospace">
+      ✅ Success
+    </text>
+  </g>
+
+  <!-- Big checkmark and success message -->
+  <g id="success">
+    <circle cx="1020" cy="137" r="30" class="green-stroke" fill="#d3f9d8" stroke-width="3"/>
+    <path d="M 1007,137 L 1015,145 L 1033,127" class="green-stroke" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <text x="1020" y="250" text-anchor="middle" class="sketch-text" fill="#2a9d8f" font-weight="bold">
+      Ready!
+    </text>
+  </g>
+
+  <!-- Time estimate -->
+  <g id="time-estimate">
+    <rect x="425" y="310" width="250" height="36" rx="18" fill="#e7f5ff" stroke="#339af0" stroke-width="2"/>
+    <text x="550" y="333" text-anchor="middle" class="sketch-text" fill="#1864ab">
+      ⏱️ Total time: ~5 minutes
+    </text>
+  </g>
+</svg>

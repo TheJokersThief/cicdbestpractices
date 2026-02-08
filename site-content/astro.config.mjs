@@ -25,6 +25,7 @@ export default defineConfig({
             { label: 'Automate Nitpicks', link: '/ci/automate-nitpicks/' },
             { label: 'Caching', link: '/ci/caching/' },
             { label: 'Debugging Pipelines', link: '/ci/debugging-pipelines/' },
+            { label: 'Local Validation', link: '/ci/local-validation/' },
             { label: 'Parallelisation', link: '/ci/parallelisation/' },
             { label: 'Scheduled Pipelines', link: '/ci/scheduled-pipelines/' },
             { label: 'Workload Identity', link: '/ci/workload-identity/' },
