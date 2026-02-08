@@ -7,10 +7,6 @@
       .red-stroke { stroke: #e63946; stroke-width: 2.5; fill: none; }
       .green-stroke { stroke: #2a9d8f; stroke-width: 2.5; fill: none; }
       .gray-stroke { stroke: #6c757d; stroke-width: 2; fill: none; }
-      .red-fill { fill: #e63946; }
-      .green-fill { fill: #2a9d8f; }
-      .gray-fill { fill: #6c757d; }
-      .box-fill { fill: #f8f9fa; }
     </style>
   </defs>
 
@@ -27,60 +23,55 @@
     </text>
 
     <!-- Step 1: Write code -->
-    <path d="M 50,95 Q 52,93 56,95 L 124,95 Q 128,97 124,99 L 124,123 Q 128,127 124,129 L 56,129 Q 52,127 56,123 L 56,99 Q 52,97 50,95 Z"
-          class="gray-stroke" fill="#f8f9fa"/>
-    <text x="87" y="117" text-anchor="middle" class="sketch-text-small" fill="#212529">
+    <rect x="50" y="95" width="94" height="34" class="gray-stroke" fill="#f8f9fa" rx="0"/>
+    <text x="97" y="117" text-anchor="middle" class="sketch-text-small" fill="#212529">
       Write code
     </text>
 
     <!-- Arrow 1 -->
-    <path d="M 128,112 Q 145,112 162,112" class="gray-stroke" stroke-dasharray="2,2"/>
-    <polygon points="162,112 157,109 157,115" fill="#6c757d"/>
+    <path d="M 144,112 Q 161,112 178,112" class="gray-stroke" stroke-dasharray="2,2"/>
+    <polygon points="178,112 173,109 173,115" fill="#6c757d"/>
 
     <!-- Step 2: Push -->
-    <path d="M 166,95 Q 168,93 172,95 L 240,95 Q 244,97 240,99 L 240,123 Q 244,127 240,129 L 172,129 Q 168,127 172,123 L 172,99 Q 168,97 166,95 Z"
-          class="gray-stroke" fill="#f8f9fa"/>
-    <text x="203" y="117" text-anchor="middle" class="sketch-text-small" fill="#212529">
+    <rect x="182" y="95" width="94" height="34" class="gray-stroke" fill="#f8f9fa" rx="0"/>
+    <text x="229" y="117" text-anchor="middle" class="sketch-text-small" fill="#212529">
       Push
     </text>
 
     <!-- Arrow 2 -->
-    <path d="M 244,112 Q 275,112 306,112" class="red-stroke" stroke-dasharray="2,2"/>
-    <polygon points="306,112 301,109 301,115" fill="#e63946"/>
+    <path d="M 276,112 Q 307,112 338,112" class="red-stroke" stroke-dasharray="2,2"/>
+    <polygon points="338,112 333,109 333,115" fill="#e63946"/>
 
     <!-- Step 3: Wait 8 min -->
-    <path d="M 310,95 Q 312,93 316,95 L 406,95 Q 410,97 406,99 L 406,123 Q 410,127 406,129 L 316,129 Q 312,127 316,123 L 316,99 Q 312,97 310,95 Z"
-          class="red-stroke" fill="#ffe5e5"/>
-    <text x="358" y="117" text-anchor="middle" class="sketch-text-small" fill="#d32f2f">
+    <rect x="342" y="95" width="116" height="34" class="red-stroke" fill="#ffe5e5" rx="0"/>
+    <text x="400" y="117" text-anchor="middle" class="sketch-text-small" fill="#d32f2f">
       ⏰ Wait 8 min
     </text>
 
     <!-- Arrow 3 -->
-    <path d="M 410,112 Q 425,112 440,112" class="red-stroke" stroke-dasharray="2,2"/>
-    <polygon points="440,112 435,109 435,115" fill="#e63946"/>
+    <path d="M 458,112 Q 473,112 488,112" class="red-stroke" stroke-dasharray="2,2"/>
+    <polygon points="488,112 483,109 483,115" fill="#e63946"/>
 
     <!-- Step 4: CI Fails -->
-    <path d="M 444,95 Q 446,93 450,95 L 484,95 Q 488,97 484,99 L 484,123 Q 488,127 484,129 L 450,129 Q 446,127 450,123 L 450,99 Q 446,97 444,95 Z"
-          class="red-stroke" fill="#ffe5e5"/>
-    <text x="464" y="117" text-anchor="middle" class="sketch-text-small" fill="#d32f2f">
+    <rect x="492" y="95" width="72" height="34" class="red-stroke" fill="#ffe5e5" rx="0"/>
+    <text x="528" y="117" text-anchor="middle" class="sketch-text-small" fill="#d32f2f">
       ❌ CI fails
     </text>
 
     <!-- Arrow down to Fix -->
-    <path d="M 464,129 Q 464,175 464,221" class="red-stroke" stroke-dasharray="2,2"/>
-    <polygon points="464,221 461,216 467,216" fill="#e63946"/>
+    <path d="M 528,129 Q 528,175 528,221" class="red-stroke" stroke-dasharray="2,2"/>
+    <polygon points="528,221 525,216 531,216" fill="#e63946"/>
 
     <!-- Step 5: Fix -->
-    <path d="M 404,225 Q 406,223 410,225 L 478,225 Q 482,227 478,229 L 478,253 Q 482,257 478,259 L 410,259 Q 406,257 410,253 L 410,229 Q 406,227 404,225 Z"
-          class="gray-stroke" fill="#f8f9fa"/>
-    <text x="444" y="247" text-anchor="middle" class="sketch-text-small" fill="#212529">
+    <rect x="454" y="225" width="94" height="34" class="gray-stroke" fill="#f8f9fa" rx="0"/>
+    <text x="501" y="247" text-anchor="middle" class="sketch-text-small" fill="#212529">
       Fix code
     </text>
 
     <!-- Arrow back up -->
-    <path d="M 410,242 Q 280,242 140,242 L 140,117 Q 90,117 54,129"
+    <path d="M 454,242 Q 324,242 140,242 L 140,117 Q 90,117 50,129"
           class="red-stroke" stroke-dasharray="2,2"/>
-    <polygon points="54,129 51,134 57,134" fill="#e63946"/>
+    <polygon points="50,129 47,134 53,134" fill="#e63946"/>
 
     <!-- Total time -->
     <text x="250" y="305" text-anchor="middle" class="sketch-text" fill="#e63946" font-weight="bold">
@@ -99,64 +90,58 @@
     </text>
 
     <!-- Step 1: Write code -->
-    <path d="M 520,95 Q 522,93 526,95 L 594,95 Q 598,97 594,99 L 594,123 Q 598,127 594,129 L 526,129 Q 522,127 526,123 L 526,99 Q 522,97 520,95 Z"
-          class="gray-stroke" fill="#f8f9fa"/>
-    <text x="557" y="117" text-anchor="middle" class="sketch-text-small" fill="#212529">
+    <rect x="520" y="95" width="94" height="34" class="gray-stroke" fill="#f8f9fa" rx="0"/>
+    <text x="567" y="117" text-anchor="middle" class="sketch-text-small" fill="#212529">
       Write code
     </text>
 
     <!-- Arrow 1 -->
-    <path d="M 598,112 Q 625,112 652,112" class="green-stroke" stroke-dasharray="2,2"/>
-    <polygon points="652,112 647,109 647,115" fill="#2a9d8f"/>
+    <path d="M 614,112 Q 641,112 668,112" class="green-stroke" stroke-dasharray="2,2"/>
+    <polygon points="668,112 663,109 663,115" fill="#2a9d8f"/>
 
     <!-- Step 2: Validate 30s -->
-    <path d="M 656,95 Q 658,93 662,95 L 758,95 Q 762,97 758,99 L 758,123 Q 762,127 758,129 L 662,129 Q 658,127 662,123 L 662,99 Q 658,97 656,95 Z"
-          class="green-stroke" fill="#e5f5f3"/>
-    <text x="707" y="117" text-anchor="middle" class="sketch-text-small" fill="#0a6e5c">
+    <rect x="672" y="95" width="122" height="34" class="green-stroke" fill="#e5f5f3" rx="0"/>
+    <text x="733" y="117" text-anchor="middle" class="sketch-text-small" fill="#0a6e5c">
       ⚡ Validate 30s
     </text>
 
     <!-- Arrow 2 -->
-    <path d="M 762,112 Q 789,112 816,112" class="green-stroke" stroke-dasharray="2,2"/>
-    <polygon points="816,112 811,109 811,115" fill="#2a9d8f"/>
+    <path d="M 794,112 Q 821,112 848,112" class="green-stroke" stroke-dasharray="2,2"/>
+    <polygon points="848,112 843,109 843,115" fill="#2a9d8f"/>
 
     <!-- Step 3: Fix -->
-    <path d="M 820,95 Q 822,93 826,95 L 894,95 Q 898,97 894,99 L 894,123 Q 898,127 894,129 L 826,129 Q 822,127 826,123 L 826,99 Q 822,97 820,95 Z"
-          class="gray-stroke" fill="#f8f9fa"/>
-    <text x="857" y="117" text-anchor="middle" class="sketch-text-small" fill="#212529">
+    <rect x="852" y="95" width="94" height="34" class="gray-stroke" fill="#f8f9fa" rx="0"/>
+    <text x="899" y="117" text-anchor="middle" class="sketch-text-small" fill="#212529">
       Fix
     </text>
 
     <!-- Arrow down -->
-    <path d="M 857,129 Q 857,175 857,221" class="green-stroke" stroke-dasharray="2,2"/>
-    <polygon points="857,221 854,216 860,216" fill="#2a9d8f"/>
+    <path d="M 899,129 Q 899,175 899,221" class="green-stroke" stroke-dasharray="2,2"/>
+    <polygon points="899,221 896,216 902,216" fill="#2a9d8f"/>
 
     <!-- Step 4: Validate 30s -->
-    <path d="M 800,225 Q 802,223 806,225 L 902,225 Q 906,227 902,229 L 902,253 Q 906,257 902,259 L 806,259 Q 802,257 806,253 L 806,229 Q 802,227 800,225 Z"
-          class="green-stroke" fill="#e5f5f3"/>
-    <text x="851" y="247" text-anchor="middle" class="sketch-text-small" fill="#0a6e5c">
+    <rect x="838" y="225" width="122" height="34" class="green-stroke" fill="#e5f5f3" rx="0"/>
+    <text x="899" y="247" text-anchor="middle" class="sketch-text-small" fill="#0a6e5c">
       ⚡ Validate 30s
     </text>
 
     <!-- Arrow down -->
-    <path d="M 851,259 Q 851,305 851,351" class="green-stroke" stroke-dasharray="2,2"/>
-    <polygon points="851,351 848,346 854,346" fill="#2a9d8f"/>
+    <path d="M 899,259 Q 899,305 899,351" class="green-stroke" stroke-dasharray="2,2"/>
+    <polygon points="899,351 896,346 902,346" fill="#2a9d8f"/>
 
     <!-- Step 5: Push -->
-    <path d="M 794,355 Q 796,353 800,355 L 868,355 Q 872,357 868,359 L 868,383 Q 872,387 868,389 L 800,389 Q 796,387 800,383 L 800,359 Q 796,357 794,355 Z"
-          class="gray-stroke" fill="#f8f9fa"/>
-    <text x="831" y="377" text-anchor="middle" class="sketch-text-small" fill="#212529">
+    <rect x="852" y="355" width="94" height="34" class="gray-stroke" fill="#f8f9fa" rx="0"/>
+    <text x="899" y="377" text-anchor="middle" class="sketch-text-small" fill="#212529">
       Push
     </text>
 
     <!-- Arrow down -->
-    <path d="M 831,389 Q 831,435 831,481" class="green-stroke" stroke-dasharray="2,2"/>
-    <polygon points="831,481 828,476 834,476" fill="#2a9d8f"/>
+    <path d="M 899,389 Q 899,435 899,481" class="green-stroke" stroke-dasharray="2,2"/>
+    <polygon points="899,481 896,476 902,476" fill="#2a9d8f"/>
 
     <!-- Step 6: CI Passes -->
-    <path d="M 785,485 Q 787,483 791,485 L 869,485 Q 873,487 869,489 L 869,513 Q 873,517 869,519 L 791,519 Q 787,517 791,513 L 791,489 Q 787,487 785,485 Z"
-          class="green-stroke" fill="#e5f5f3"/>
-    <text x="827" y="507" text-anchor="middle" class="sketch-text-small" fill="#0a6e5c">
+    <rect x="835" y="485" width="104" height="34" class="green-stroke" fill="#e5f5f3" rx="0"/>
+    <text x="887" y="507" text-anchor="middle" class="sketch-text-small" fill="#0a6e5c">
       ✅ CI passes
     </text>
 
