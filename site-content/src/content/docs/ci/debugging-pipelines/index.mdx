@@ -4,6 +4,13 @@ description: Systematic guide to troubleshooting and fixing CI/CD pipeline failu
 ---
 
 import { Tabs, TabItem, Card } from '@astrojs/starlight/components';
+import DebuggingMindset from '../../../../assets/debugging-pipelines/debugging-mindset.svg';
+import QuickWinsChecklist from '../../../../assets/debugging-pipelines/quick-wins-checklist.svg';
+import ErrorNpm404 from '../../../../assets/debugging-pipelines/error-npm-404.svg';
+import ErrorTimeout from '../../../../assets/debugging-pipelines/error-timeout.svg';
+import ErrorEnvironment from '../../../../assets/debugging-pipelines/error-environment.svg';
+import ErrorPermission from '../../../../assets/debugging-pipelines/error-permission.svg';
+import ErrorOom from '../../../../assets/debugging-pipelines/error-oom.svg';
 
 **Pipeline failures are one of the most frustrating experiences in software development.** When your build fails, you lose time to context switching, deployments get blocked, and the whole team slows down. The average developer loses 5-10 minutes per failure just getting back into flow state.
 
@@ -20,13 +27,13 @@ Debugging pipelines effectively is a learnable skill that compounds over time:
 
 The debugging process follows a simple cycle: **Observe** (gather information) → **Hypothesize** (form a theory) → **Test** (try a fix) → **Verify** (confirm it works). When a fix doesn't work, you cycle back with new information.
 
-<img src="../../../../assets/debugging-pipelines/debugging-mindset.svg" alt="The debugging cycle showing iterative problem-solving" style="max-width: 100%; height: auto;" />
+<img src={DebuggingMindset.src} alt="The debugging cycle showing iterative problem-solving" style="max-width: 100%; height: auto;" />
 
 ## Quick Checks - Start Here
 
 Before investigating deeply, these quick checks resolve 60% of pipeline failures in under 5 minutes. Run through this list first:
 
-<img src="../../../../assets/debugging-pipelines/quick-wins-checklist.svg" alt="Quick wins checklist with time estimates" style="max-width: 100%; height: auto;" />
+<img src={QuickWinsChecklist.src} alt="Quick wins checklist with time estimates" style="max-width: 100%; height: auto;" />
 
 ### 1. Clear cache and re-run
 
@@ -181,7 +188,7 @@ For Go private packages:
 go env -w GOPRIVATE=github.com/company/*
 ```
 
-<img src="../../../../assets/debugging-pipelines/error-npm-404.svg" alt="Annotated npm 404 error example" style="max-width: 100%; height: auto; margin: 2rem 0;" />
+<img src={ErrorNpm404.src} alt="Annotated npm 404 error example" style="max-width: 100%; height: auto; margin: 2rem 0;" />
 
 #### Pattern: "Integrity checksum failed"
 
@@ -355,7 +362,7 @@ await new Promise(resolve => setTimeout(resolve, 5000));
 await waitFor(() => expect(element).toBeVisible());
 ```
 
-<img src="../../../../assets/debugging-pipelines/error-timeout.svg" alt="Annotated test timeout error example" style="max-width: 100%; height: auto; margin: 2rem 0;" />
+<img src={ErrorTimeout.src} alt="Annotated test timeout error example" style="max-width: 100%; height: auto; margin: 2rem 0;" />
 
 #### Pattern: "Intermittent assertion failures"
 
@@ -637,7 +644,7 @@ Add defaults for non-secret values:
 const apiKey = process.env.API_KEY || 'default-for-testing';
 ```
 
-<img src="../../../../assets/debugging-pipelines/error-environment.svg" alt="Annotated environment variable error example" style="max-width: 100%; height: auto; margin: 2rem 0;" />
+<img src={ErrorEnvironment.src} alt="Annotated environment variable error example" style="max-width: 100%; height: auto; margin: 2rem 0;" />
 
 #### Pattern: "File/directory not found"
 
@@ -743,7 +750,7 @@ Update credential scopes and rotate:
 # Test with new token
 ```
 
-<img src="../../../../assets/debugging-pipelines/error-permission.svg" alt="Annotated permission denied error example" style="max-width: 100%; height: auto; margin: 2rem 0;" />
+<img src={ErrorPermission.src} alt="Annotated permission denied error example" style="max-width: 100%; height: auto; margin: 2rem 0;" />
 
 #### Pattern: "Authentication failed"
 
@@ -922,7 +929,7 @@ Killed (process received SIGKILL - likely OOM)
 The job exceeded the maximum memory limit
 ```
 
-<img src="../../../../assets/debugging-pipelines/error-oom.svg" alt="Annotated out of memory error example" style="max-width: 100%; height: auto; margin: 2rem 0;" />
+<img src={ErrorOom.src} alt="Annotated out of memory error example" style="max-width: 100%; height: auto; margin: 2rem 0;" />
 
 **What it means:** Process used more memory than available and was killed by the system. Common in: large builds, memory leaks, processing large datasets.
 
