@@ -1,0 +1,176 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <defs>
+    <style>
+      .sketch-text { font-family: 'Comic Sans MS', 'Marker Felt', cursive; font-size: 14px; }
+      .sketch-text-large { font-family: 'Comic Sans MS', 'Marker Felt', cursive; font-size: 18px; font-weight: bold; }
+      .sketch-text-small { font-family: 'Comic Sans MS', 'Marker Felt', cursive; font-size: 12px; }
+      .red-stroke { stroke: #e63946; stroke-width: 2.5; fill: none; }
+      .green-stroke { stroke: #2a9d8f; stroke-width: 2.5; fill: none; }
+      .gray-stroke { stroke: #6c757d; stroke-width: 2; fill: none; }
+      .red-fill { fill: #e63946; }
+      .green-fill { fill: #2a9d8f; }
+      .gray-fill { fill: #6c757d; }
+      .box-fill { fill: #f8f9fa; }
+    </style>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" class="sketch-text-large" fill="#212529">
+    CI Feedback Loop Comparison
+  </text>
+
+  <!-- BEFORE Section -->
+  <g id="before-section">
+    <!-- Section label -->
+    <text x="200" y="70" text-anchor="middle" class="sketch-text" fill="#e63946" font-weight="bold">
+      ❌ BEFORE (16+ minutes)
+    </text>
+
+    <!-- Step 1: Write code -->
+    <path d="M 50,100 Q 52,98 54,100 L 94,100 Q 96,102 94,104 L 54,104 Q 52,102 50,100 Z"
+          class="gray-stroke" fill="#f8f9fa"/>
+    <text x="72" y="107" text-anchor="middle" class="sketch-text-small" fill="#212529">
+      Write code
+    </text>
+
+    <!-- Arrow 1 -->
+    <path d="M 96,102 Q 110,102 124,102" class="gray-stroke" stroke-dasharray="2,2"/>
+    <polygon points="124,102 119,99 119,105" fill="#6c757d"/>
+
+    <!-- Step 2: Push -->
+    <path d="M 128,100 Q 130,98 132,100 L 172,100 Q 174,102 172,104 L 132,104 Q 130,102 128,100 Z"
+          class="gray-stroke" fill="#f8f9fa"/>
+    <text x="150" y="107" text-anchor="middle" class="sketch-text-small" fill="#212529">
+      Push
+    </text>
+
+    <!-- Arrow 2 -->
+    <path d="M 174,102 Q 188,102 202,102" class="red-stroke" stroke-dasharray="2,2"/>
+    <polygon points="202,102 197,99 197,105" fill="#e63946"/>
+
+    <!-- Step 3: Wait 8 min -->
+    <path d="M 206,100 Q 208,98 210,100 L 290,100 Q 292,102 290,104 L 210,104 Q 208,102 206,100 Z"
+          class="red-stroke" fill="#ffe5e5"/>
+    <text x="248" y="107" text-anchor="middle" class="sketch-text-small fill="#d32f2f">
+      ⏰ Wait 8 min
+    </text>
+
+    <!-- Arrow 3 -->
+    <path d="M 292,102 Q 306,102 320,102" class="red-stroke" stroke-dasharray="2,2"/>
+    <polygon points="320,102 315,99 315,105" fill="#e63946"/>
+
+    <!-- Step 4: CI Fails -->
+    <path d="M 324,100 Q 326,98 328,100 L 368,100 Q 370,102 368,104 L 328,104 Q 326,102 324,100 Z"
+          class="red-stroke" fill="#ffe5e5"/>
+    <text x="346" y="107" text-anchor="middle" class="sketch-text-small" fill="#d32f2f">
+      ❌ CI fails
+    </text>
+
+    <!-- Arrow down to Fix -->
+    <path d="M 346,106 Q 346,130 346,154" class="red-stroke" stroke-dasharray="2,2"/>
+    <polygon points="346,154 343,149 349,149" fill="#e63946"/>
+
+    <!-- Step 5: Fix -->
+    <path d="M 324,158 Q 326,156 328,158 L 368,158 Q 370,160 368,162 L 328,162 Q 326,160 324,158 Z"
+          class="gray-stroke" fill="#f8f9fa"/>
+    <text x="346" y="165" text-anchor="middle" class="sketch-text-small" fill="#212529">
+      Fix code
+    </text>
+
+    <!-- Arrow back up -->
+    <path d="M 324,160 Q 300,160 280,160 L 280,130 Q 200,130 150,130 L 150,106"
+          class="red-stroke" stroke-dasharray="2,2"/>
+    <polygon points="150,106 147,111 153,111" fill="#e63946"/>
+
+    <!-- Total time -->
+    <text x="200" y="195" text-anchor="middle" class="sketch-text" fill="#e63946" font-weight="bold">
+      Total: 16+ minutes 😤
+    </text>
+  </g>
+
+  <!-- Divider -->
+  <line x1="400" y1="50" x2="400" y2="380" stroke="#dee2e6" stroke-width="2" stroke-dasharray="5,5"/>
+
+  <!-- AFTER Section -->
+  <g id="after-section">
+    <!-- Section label -->
+    <text x="600" y="70" text-anchor="middle" class="sketch-text" fill="#2a9d8f" font-weight="bold">
+      ✅ AFTER (2 minutes)
+    </text>
+
+    <!-- Step 1: Write code -->
+    <path d="M 450,100 Q 452,98 454,100 L 494,100 Q 496,102 494,104 L 454,104 Q 452,102 450,100 Z"
+          class="gray-stroke" fill="#f8f9fa"/>
+    <text x="472" y="107" text-anchor="middle" class="sketch-text-small" fill="#212529">
+      Write code
+    </text>
+
+    <!-- Arrow 1 -->
+    <path d="M 496,102 Q 510,102 524,102" class="green-stroke" stroke-dasharray="2,2"/>
+    <polygon points="524,102 519,99 519,105" fill="#2a9d8f"/>
+
+    <!-- Step 2: Validate 30s -->
+    <path d="M 528,100 Q 530,98 532,100 L 620,100 Q 622,102 620,104 L 532,104 Q 530,102 528,100 Z"
+          class="green-stroke" fill="#e5f5f3"/>
+    <text x="574" y="107" text-anchor="middle" class="sketch-text-small" fill="#0a6e5c">
+      ⚡ Validate 30s
+    </text>
+
+    <!-- Arrow 2 -->
+    <path d="M 622,102 Q 636,102 650,102" class="green-stroke" stroke-dasharray="2,2"/>
+    <polygon points="650,102 645,99 645,105" fill="#2a9d8f"/>
+
+    <!-- Step 3: Fix -->
+    <path d="M 654,100 Q 656,98 658,100 L 698,100 Q 700,102 698,104 L 658,104 Q 656,102 654,100 Z"
+          class="gray-stroke" fill="#f8f9fa"/>
+    <text x="676" y="107" text-anchor="middle" class="sketch-text-small" fill="#212529">
+      Fix
+    </text>
+
+    <!-- Arrow down -->
+    <path d="M 676,106 Q 676,130 676,154" class="green-stroke" stroke-dasharray="2,2"/>
+    <polygon points="676,154 673,149 679,149" fill="#2a9d8f"/>
+
+    <!-- Step 4: Validate 30s -->
+    <path d="M 630,158 Q 632,156 634,158 L 722,158 Q 724,160 722,162 L 634,162 Q 632,160 630,158 Z"
+          class="green-stroke" fill="#e5f5f3"/>
+    <text x="676" y="165" text-anchor="middle" class="sketch-text-small" fill="#0a6e5c">
+      ⚡ Validate 30s
+    </text>
+
+    <!-- Arrow down -->
+    <path d="M 676,164 Q 676,188 676,212" class="green-stroke" stroke-dasharray="2,2"/>
+    <polygon points="676,212 673,207 679,207" fill="#2a9d8f"/>
+
+    <!-- Step 5: Push -->
+    <path d="M 654,216 Q 656,214 658,216 L 698,216 Q 700,218 698,220 L 658,220 Q 656,218 654,216 Z"
+          class="gray-stroke" fill="#f8f9fa"/>
+    <text x="676" y="223" text-anchor="middle" class="sketch-text-small" fill="#212529">
+      Push
+    </text>
+
+    <!-- Arrow down -->
+    <path d="M 676,222 Q 676,246 676,270" class="green-stroke" stroke-dasharray="2,2"/>
+    <polygon points="676,270 673,265 679,265" fill="#2a9d8f"/>
+
+    <!-- Step 6: CI Passes -->
+    <path d="M 640,274 Q 642,272 644,274 L 710,274 Q 712,276 710,278 L 644,278 Q 642,276 640,274 Z"
+          class="green-stroke" fill="#e5f5f3"/>
+    <text x="676" y="281" text-anchor="middle" class="sketch-text-small" fill="#0a6e5c">
+      ✅ CI passes
+    </text>
+
+    <!-- Total time -->
+    <text x="600" y="315" text-anchor="middle" class="sketch-text" fill="#2a9d8f" font-weight="bold">
+      Total: 2 minutes 🎉
+    </text>
+  </g>
+
+  <!-- Bottom summary -->
+  <g id="summary">
+    <rect x="150" y="350" width="500" height="40" rx="5" ry="5" fill="#fffbeb" stroke="#f59e0b" stroke-width="2"/>
+    <text x="400" y="375" text-anchor="middle" class="sketch-text" fill="#92400e">
+      ⚡ 87.5% faster • Zero "fix CI" commits • Work offline
+    </text>
+  </g>
+</svg>

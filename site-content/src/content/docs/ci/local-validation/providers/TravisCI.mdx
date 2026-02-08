@@ -1,0 +1,312 @@
+---
+title: Travis CI Local Validation
+---
+
+## Local Validation with Docker
+
+Travis CI doesn't provide an official local runner, but you can validate your build logic using Docker Compose to replicate the Travis environment.
+
+### When to Use This Approach
+
+Use Docker-based validation for:
+- Testing `.travis.yml` build scripts
+- Validating install and test commands
+- Debugging build failures locally
+- Developing new build stages
+
+**Note:** This validates your actual build logic but not Travis-specific syntax or features.
+
+### Working Example
+
+Create `docker-compose.ci.yml` matching your Travis configuration:
+
+```yaml
+version: '3.8'
+
+services:
+  travis-validator:
+    # Match your Travis language and version
+    image: node:18
+
+    working_dir: /build
+
+    volumes:
+      - .:/build
+      - /build/node_modules
+
+    # Replicate Travis lifecycle
+    command: |
+      bash -c "
+        echo '==> before_install' &&
+        # Add before_install commands here
+
+        echo '==> install' &&
+        npm ci &&
+
+        echo '==> before_script' &&
+        # Add before_script commands here
+
+        echo '==> script' &&
+        npm test &&
+
+        echo '==> after_success' &&
+        echo 'Build passed ✅'
+      "
+
+    environment:
+      CI: true
+      TRAVIS: true
+      CONTINUOUS_INTEGRATION: true
+```
+
+### Basic Usage
+
+```bash
+# Run complete build
+docker-compose -f docker-compose.ci.yml run --rm travis-validator
+
+# Run specific lifecycle stage
+docker-compose -f docker-compose.ci.yml run --rm travis-validator bash -c "npm test"
+
+# Debug interactively
+docker-compose -f docker-compose.ci.yml run --rm travis-validator bash
+```
+
+### Matching Your Travis Configuration
+
+**Map from `.travis.yml` to Docker Compose:**
+
+**Your `.travis.yml`:**
+```yaml
+language: node_js
+node_js:
+  - "18"
+
+cache:
+  directories:
+    - node_modules
+
+before_install:
+  - npm install -g typescript
+
+install:
+  - npm ci
+
+before_script:
+  - npm run build
+
+script:
+  - npm test
+  - npm run lint
+
+after_success:
+  - npm run coverage
+```
+
+**Equivalent Docker Compose:**
+```yaml
+services:
+  travis-validator:
+    image: node:18
+    working_dir: /build
+    volumes:
+      - .:/build
+      - node_modules_cache:/build/node_modules
+    command: |
+      bash -c "
+        echo '==> before_install' &&
+        npm install -g typescript &&
+
+        echo '==> install' &&
+        npm ci &&
+
+        echo '==> before_script' &&
+        npm run build &&
+
+        echo '==> script' &&
+        npm test &&
+        npm run lint &&
+
+        echo '==> after_success' &&
+        npm run coverage
+      "
+    environment:
+      CI: true
+
+volumes:
+  node_modules_cache:
+```
+
+### Language-Specific Examples
+
+**Python:**
+```yaml
+services:
+  travis-validator:
+    image: python:3.11
+    working_dir: /build
+    volumes:
+      - .:/build
+    command: |
+      bash -c "
+        pip install -r requirements.txt &&
+        pytest &&
+        flake8
+      "
+```
+
+**Ruby:**
+```yaml
+services:
+  travis-validator:
+    image: ruby:3.2
+    working_dir: /build
+    volumes:
+      - .:/build
+    command: |
+      bash -c "
+        bundle install &&
+        bundle exec rake test
+      "
+```
+
+**Go:**
+```yaml
+services:
+  travis-validator:
+    image: golang:1.21
+    working_dir: /go/src/app
+    volumes:
+      - .:/go/src/app
+    command: |
+      bash -c "
+        go mod download &&
+        go test ./... &&
+        go build
+      "
+```
+
+### Adding Service Dependencies
+
+If your Travis build uses databases or services:
+
+**Your `.travis.yml`:**
+```yaml
+services:
+  - postgresql
+  - redis
+
+env:
+  - DATABASE_URL=postgres://postgres@localhost/test
+```
+
+**Docker Compose equivalent:**
+```yaml
+services:
+  travis-validator:
+    image: node:18
+    working_dir: /build
+    volumes:
+      - .:/build
+    depends_on:
+      - postgres
+      - redis
+    environment:
+      DATABASE_URL: postgres://postgres:password@postgres:5432/test
+      REDIS_URL: redis://redis:6379
+    command: |
+      bash -c "
+        npm ci &&
+        npm test
+      "
+
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: test
+
+  redis:
+    image: redis:7-alpine
+```
+
+### Limitations
+
+**What this validates:**
+- ✅ Build commands execute correctly
+- ✅ Tests pass in similar environment
+- ✅ Dependencies install properly
+- ✅ Scripts work as expected
+
+**What it doesn't validate:**
+- ❌ Travis `.travis.yml` syntax (use `travis lint` instead)
+- ❌ Travis-specific features (deploy providers, encryption)
+- ❌ Build matrix combinations
+- ❌ Travis environment variables and secrets
+
+**Syntax validation:**
+
+Install Travis CLI for syntax checking:
+```bash
+gem install travis
+
+# Validate .travis.yml syntax
+travis lint
+```
+
+This catches syntax errors but doesn't run builds. Combine with Docker Compose for full validation.
+
+### Workflow Integration
+
+**Pre-push validation script:**
+
+Create `scripts/validate-travis.sh`:
+```bash
+#!/bin/bash
+set -e
+
+echo "Validating Travis syntax..."
+travis lint --exit-code
+
+echo "Running build locally..."
+docker-compose -f docker-compose.ci.yml run --rm travis-validator
+
+echo "✅ Travis build validated successfully"
+```
+
+Make it executable:
+```bash
+chmod +x scripts/validate-travis.sh
+```
+
+Run before pushing:
+```bash
+./scripts/validate-travis.sh
+git push
+```
+
+### Tips
+
+- **Match the image:** Use the same base image version as Travis (check [Travis CI images](https://docs.travis-ci.com/user/languages/))
+- **Replicate lifecycle order:** Follow Travis's exact order: `before_install` → `install` → `before_script` → `script`
+- **Use `travis lint`:** Always validate syntax with the Travis CLI first
+- **Test incrementally:** Run commands interactively to debug before committing to Docker Compose config
+- **Document environment:** Note any differences between Docker and Travis in your README
+- **Keep in sync:** Update Docker Compose when changing `.travis.yml`
+
+### Alternative Tools
+
+**travis-build** (unofficial, limited):
+```bash
+# Clone travis-build
+git clone https://github.com/travis-ci/travis-build.git
+cd travis-build
+
+# Compile .travis.yml to bash script
+bin/travis compile > ci-script.sh
+
+# Review and run
+bash ci-script.sh
+```
+
+**Warning:** This is an internal Travis tool not officially supported for local use. Docker Compose is more reliable.
