@@ -1,0 +1,160 @@
+---
+title: Travis CI Debugging
+---
+
+## Debugging Tools for Travis CI
+
+Travis CI provides debug mode, structured build logs, and build matrix views to help diagnose failures across different configurations.
+
+### 1. Debug Mode
+
+**When to use:** Need interactive access to the build environment, want to run commands manually, or need to inspect the environment that caused a failure.
+
+**How to enable:**
+
+Via Travis CI API:
+```bash
+# Trigger debug build via API
+curl -s -X POST \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json" \
+  -H "Travis-API-Version: 3" \
+  -H "Authorization: token YOUR_TRAVIS_TOKEN" \
+  -d '{"quiet": true}' \
+  https://api.travis-ci.com/job/{job_id}/debug
+```
+
+Or restart a job with debug enabled:
+1. Go to your build on travis-ci.com
+2. Click "Restart build" → "Debug build"
+3. Build will start with SSH access enabled
+
+**What you get:**
+- SSH connection string in build log
+- Access to build environment for 30 minutes
+- Ability to run commands interactively
+- Full access to environment variables and tools
+
+**Connect via SSH:**
+```bash
+# Connection details appear in build log
+ssh XXXXX@ny2.tmate.io
+
+# Once connected, navigate to repo
+cd ~/build/username/repo
+
+# Run failed commands with modifications
+bundle exec rake test --verbose
+```
+
+**Important notes:**
+- Debug mode available on private repositories
+- Session expires after 30 minutes
+- Build doesn't automatically proceed - you control execution
+
+### 2. Build Logs with Fold Sections
+
+**When to use:** First place to look for any Travis build failure. Logs are structured with collapsible sections for easy navigation.
+
+**How to access:**
+1. Click on your build in Travis CI dashboard
+2. Logs appear automatically in main view
+3. Click sections to expand/collapse
+
+**What you see:**
+- **Worker info:** VM image, environment details
+- **System info:** OS, kernel version, tools
+- **Before install:** Dependency setup
+- **Install:** Package installation
+- **Before script:** Pre-test setup
+- **Script:** Main build/test commands
+- **After success/failure:** Post-build steps
+
+**Add custom fold sections:**
+```yaml
+# .travis.yml
+script:
+  - echo -e "travis_fold:start:tests"
+  - echo "Running tests..."
+  - npm test
+  - echo -e "travis_fold:end:tests"
+
+  - echo -e "travis_fold:start:linting"
+  - echo "Running linter..."
+  - npm run lint
+  - echo -e "travis_fold:end:linting"
+```
+
+**Debugging tips:**
+```yaml
+# Add verbose output
+script:
+  - echo "=== Environment Check ==="
+  - node --version && npm --version
+  - echo "=== Disk Space ==="
+  - df -h
+  - echo "=== Running Tests ==="
+  - npm test -- --verbose
+```
+
+### 3. Build Matrix View
+
+**When to use:** Testing across multiple configurations (Node versions, OS, etc.) and need to identify which specific configuration is failing.
+
+**How to access:**
+Build page automatically shows matrix if configured in `.travis.yml`
+
+**What you get:**
+- Visual grid of all build combinations
+- Quick identification of failing configurations
+- Compare successful vs failed builds
+- Isolate environment-specific issues
+
+**Example matrix configuration:**
+```yaml
+language: node_js
+node_js:
+  - '16'
+  - '18'
+  - '20'
+os:
+  - linux
+  - osx
+  - windows
+```
+
+**This creates 9 builds:**
+- Node 16 + Linux
+- Node 16 + macOS
+- Node 16 + Windows
+- Node 18 + Linux
+- Node 18 + macOS
+- ... etc
+
+**Debugging matrix failures:**
+
+If only specific combinations fail:
+```yaml
+# Exclude known problematic combinations
+jobs:
+  exclude:
+    - os: windows
+      node_js: '16'  # Known issue with Windows + Node 16
+
+  # Or allow specific failures
+  allow_failures:
+    - os: windows  # Windows builds can fail without blocking
+```
+
+**Access matrix-specific environment:**
+```yaml
+script:
+  - echo "Testing on $TRAVIS_OS_NAME with Node $(node --version)"
+  - npm test
+```
+
+**Tips for matrix debugging:**
+- Start with minimal matrix (1-2 combinations) to isolate
+- Add configurations incrementally
+- Use `allow_failures` for unstable environments
+- Compare logs between passing and failing matrix builds

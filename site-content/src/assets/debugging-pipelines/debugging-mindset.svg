@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" role="img" aria-labelledby="debugging-mindset-title debugging-mindset-desc">
+  <title id="debugging-mindset-title">Debugging Mindset Cycle</title>
+  <desc id="debugging-mindset-desc">A circular flowchart showing the debugging process: Observe, Hypothesize, Test, Verify, with arrows indicating iteration</desc>
+
+  <!-- Define styles -->
+  <defs>
+    <style>
+      .box { fill: #3b82f6; stroke: #1e40af; stroke-width: 2; }
+      .text { fill: white; font-family: system-ui, -apple-system, sans-serif; font-size: 18px; font-weight: 600; text-anchor: middle; }
+      .description { fill: #64748b; font-family: system-ui, -apple-system, sans-serif; font-size: 14px; text-anchor: middle; }
+      .arrow { fill: none; stroke: #64748b; stroke-width: 3; marker-end: url(#arrowhead); }
+      .feedback-arrow { fill: none; stroke: #ef4444; stroke-width: 3; stroke-dasharray: 8,4; marker-end: url(#arrowhead-red); }
+      .label { fill: #64748b; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-style: italic; }
+    </style>
+
+    <!-- Arrow markers -->
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#64748b" />
+    </marker>
+    <marker id="arrowhead-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#ef4444" />
+    </marker>
+  </defs>
+
+  <!-- Step 1: Observe -->
+  <rect x="50" y="50" width="150" height="80" rx="8" class="box"/>
+  <text x="125" y="85" class="text">Observe</text>
+  <text x="125" y="105" class="description">Gather error info</text>
+  <text x="125" y="120" class="description">Read logs</text>
+
+  <!-- Arrow 1 to 2 -->
+  <path d="M 200 90 L 280 90" class="arrow"/>
+
+  <!-- Step 2: Hypothesize -->
+  <rect x="280" y="50" width="150" height="80" rx="8" class="box"/>
+  <text x="355" y="85" class="text">Hypothesize</text>
+  <text x="355" y="105" class="description">Form a theory</text>
+  <text x="355" y="120" class="description">What could cause this?</text>
+
+  <!-- Arrow 2 to 3 -->
+  <path d="M 430 90 L 510 90" class="arrow"/>
+
+  <!-- Step 3: Test -->
+  <rect x="510" y="50" width="150" height="80" rx="8" class="box"/>
+  <text x="585" y="85" class="text">Test</text>
+  <text x="585" y="105" class="description">Try a fix</text>
+  <text x="585" y="120" class="description">Make a change</text>
+
+  <!-- Arrow 3 to 4 (downward) -->
+  <path d="M 585 130 L 585 200" class="arrow"/>
+
+  <!-- Step 4: Verify -->
+  <rect x="510" y="200" width="150" height="80" rx="8" class="box"/>
+  <text x="585" y="235" class="text">Verify</text>
+  <text x="585" y="255" class="description">Did it work?</text>
+  <text x="585" y="270" class="description">Run tests</text>
+
+  <!-- Arrow 4 back to 1 (feedback loop - red dashed) -->
+  <path d="M 510 240 L 400 240 Q 125 240 125 280 Q 125 320 125 320 L 125 130" class="feedback-arrow"/>
+  <text x="250" y="260" class="label">If fix didn't work, iterate with new information</text>
+
+  <!-- Success path (downward from Verify) -->
+  <path d="M 585 280 L 585 330" class="arrow"/>
+  <text x="585" y="355" class="description" style="fill: #10b981; font-weight: 600;">✓ Problem Resolved</text>
+
+  <!-- Title -->
+  <text x="400" y="30" style="fill: #1e293b; font-family: system-ui, -apple-system, sans-serif; font-size: 22px; font-weight: 700; text-anchor: middle;">The Debugging Cycle</text>
+</svg>

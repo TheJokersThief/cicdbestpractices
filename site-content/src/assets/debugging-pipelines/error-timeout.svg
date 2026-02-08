@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 450" role="img" aria-labelledby="timeout-error-title">
+  <title id="timeout-error-title">Test Timeout Error with Annotations</title>
+
+  <defs>
+    <style>
+      .terminal-bg { fill: #1e1e1e; }
+      .terminal-text { fill: #d4d4d4; font-family: 'Courier New', monospace; font-size: 12px; }
+      .error-text { fill: #f87171; }
+      .success-text { fill: #86efac; }
+      .annotation-box { fill: #fef3c7; stroke: #f59e0b; stroke-width: 2; }
+      .annotation-text { fill: #92400e; font-family: system-ui, -apple-system, sans-serif; font-size: 11px; font-weight: 600; }
+      .annotation-line { stroke: #f59e0b; stroke-width: 2; fill: none; }
+      .highlight { fill: #fbbf2433; }
+    </style>
+  </defs>
+
+  <!-- Terminal background -->
+  <rect x="20" y="20" width="860" height="280" rx="8" class="terminal-bg"/>
+
+  <!-- Terminal title bar -->
+  <text x="40" y="45" class="terminal-text" style="fill: #9ca3af;">npm test</text>
+
+  <!-- Test output -->
+  <text x="40" y="70" class="terminal-text">PASS src/components/Button.test.js (2.341s)</text>
+  <text x="50" y="88" class="success-text">✓ should render correctly (45ms)</text>
+  <text x="50" y="105" class="success-text">✓ should handle click events (23ms)</text>
+
+  <text x="40" y="130" class="terminal-text">FAIL src/api/user.test.js (45.234s)</text>
+  <text x="50" y="148" class="success-text">✓ should fetch user list (234ms)</text>
+  <text x="50" y="165" class="error-text">✕ should return user data (30001ms)</text>
+
+  <text x="40" y="190" class="error-text">  ● API Tests › should return user data</text>
+  <text x="40" y="205" class="error-text"></text>
+  <text x="40" y="220" class="error-text">    Timeout - Async callback was not invoked within the 30000ms timeout</text>
+  <text x="40" y="235" class="error-text">    specified by jest.setTimeout.</text>
+  <text x="40" y="255" class="terminal-text" style="fill: #9ca3af;">      at api.test.js:45:5</text>
+  <text x="40" y="270" class="terminal-text" style="fill: #9ca3af;">      at processTicksAndRejections (internal/process/task_queues.js:95:5)</text>
+
+  <!-- Highlight important parts -->
+  <rect x="48" y="155" width="210" height="15" class="highlight"/>
+  <rect x="48" y="210" width="560" height="30" class="highlight"/>
+  <rect x="395" y="245" width="115" height="15" class="highlight"/>
+
+  <!-- Annotation 1: Which test failed -->
+  <rect x="50" y="320" width="200" height="45" rx="6" class="annotation-box"/>
+  <text x="150" y="338" class="annotation-text" text-anchor="middle">Failed Test Name</text>
+  <text x="150" y="352" class="annotation-text" text-anchor="middle" style="font-weight: 400;">should return user data</text>
+  <path d="M 150 320 L 150 180" class="annotation-line"/>
+
+  <!-- Annotation 2: Timeout value -->
+  <rect x="350" y="320" width="200" height="45" rx="6" class="annotation-box"/>
+  <text x="450" y="338" class="annotation-text" text-anchor="middle">Timeout Setting</text>
+  <text x="450" y="352" class="annotation-text" text-anchor="middle" style="font-weight: 400;">30000ms = 30 seconds</text>
+  <path d="M 430 320 L 350 235" class="annotation-line"/>
+
+  <!-- Annotation 3: Location -->
+  <rect x="650" y="320" width="200" height="45" rx="6" class="annotation-box"/>
+  <text x="750" y="338" class="annotation-text" text-anchor="middle">Error Location</text>
+  <text x="750" y="352" class="annotation-text" text-anchor="middle" style="font-weight: 400;">api.test.js line 45</text>
+  <path d="M 720 320 L 450 270" class="annotation-line"/>
+
+  <!-- Key insight box -->
+  <rect x="50" y="385" width="820" height="50" rx="6" style="fill: #dbeafe; stroke: #3b82f6; stroke-width: 2;"/>
+  <text x="460" y="408" style="fill: #1e40af; font-family: system-ui, -apple-system, sans-serif; font-size: 13px; font-weight: 600; text-anchor: middle;">
+    💡 Test waited 30+ seconds for something that never happened
+  </text>
+  <text x="460" y="425" style="fill: #1e40af; font-family: system-ui, -apple-system, sans-serif; font-size: 11px; text-anchor: middle;">
+    Common causes: unmocked network calls, missing await, infinite loops, or waiting for elements that never appear
+  </text>
+</svg>
