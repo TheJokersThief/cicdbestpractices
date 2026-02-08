@@ -181,6 +181,8 @@ For Go private packages:
 go env -w GOPRIVATE=github.com/company/*
 ```
 
+<img src="/src/assets/debugging-pipelines/error-npm-404.svg" alt="Annotated npm 404 error example" style="max-width: 100%; height: auto; margin: 2rem 0;" />
+
 #### Pattern: "Integrity checksum failed"
 
 **Example:**
@@ -352,6 +354,8 @@ await new Promise(resolve => setTimeout(resolve, 5000));
 // Good: wait for condition
 await waitFor(() => expect(element).toBeVisible());
 ```
+
+<img src="/src/assets/debugging-pipelines/error-timeout.svg" alt="Annotated test timeout error example" style="max-width: 100%; height: auto; margin: 2rem 0;" />
 
 #### Pattern: "Intermittent assertion failures"
 
@@ -633,6 +637,8 @@ Add defaults for non-secret values:
 const apiKey = process.env.API_KEY || 'default-for-testing';
 ```
 
+<img src="/src/assets/debugging-pipelines/error-environment.svg" alt="Annotated environment variable error example" style="max-width: 100%; height: auto; margin: 2rem 0;" />
+
 #### Pattern: "File/directory not found"
 
 **Example:**
@@ -736,6 +742,8 @@ Update credential scopes and rotate:
 # Update secret in CI provider
 # Test with new token
 ```
+
+<img src="/src/assets/debugging-pipelines/error-permission.svg" alt="Annotated permission denied error example" style="max-width: 100%; height: auto; margin: 2rem 0;" />
 
 #### Pattern: "Authentication failed"
 
@@ -913,6 +921,8 @@ FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memor
 Killed (process received SIGKILL - likely OOM)
 The job exceeded the maximum memory limit
 ```
+
+<img src="/src/assets/debugging-pipelines/error-oom.svg" alt="Annotated out of memory error example" style="max-width: 100%; height: auto; margin: 2rem 0;" />
 
 **What it means:** Process used more memory than available and was killed by the system. Common in: large builds, memory leaks, processing large datasets.
 
